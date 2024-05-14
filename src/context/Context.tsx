@@ -13,9 +13,14 @@ interface ContextType {
   recentPrompt: string;
   showResult: boolean;
   loading: boolean;
+  isFirst: boolean;
   resultData: string;
   input: string;
   setInput: React.Dispatch<React.SetStateAction<string>>;
+  chats: { role: string; parts: { text: string }[] }[];
+  setChats: React.Dispatch<
+    React.SetStateAction<{ role: string; parts: { text: string }[] }[]>
+  >;
   newChat: () => void;
 }
 
@@ -27,18 +32,25 @@ export const Context = createContext<ContextType>({
   recentPrompt: "",
   showResult: false,
   loading: false,
+  isFirst: true,
   resultData: "",
   input: "",
+  chats: [],
+  setChats: () => {},
   setInput: () => {},
   newChat: () => {},
 });
 
 const ContextProvider: React.FC<Props> = (props) => {
+  const [chats, setChats] = useState<
+    { role: string; parts: { text: string }[] }[]
+  >([]);
   const [input, setInput] = useState("");
   const [recentPrompt, setRecentPrompt] = useState("");
   const [prevPrompts, setPrevPrompts] = useState<string[]>([]);
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isFirst, setIsFirst] = useState(true);
   const [resultData, setResultData] = useState("");
 
   const delayPara = (index: number, nextWord: string) => {
@@ -56,18 +68,32 @@ const ContextProvider: React.FC<Props> = (props) => {
     console.log("prompt", prompt);
     console.log("context", context);
 
+    if (!prompt) {
+      return;
+    }
+
+    setRecentPrompt(prompt);
+
+    let recentPrompt = {
+      role: "user",
+      parts: [{ text: prompt } as { text: string }],
+    };
+    setChats((prev) => [...prev, recentPrompt]);
+
+    setInput("");
+
     setResultData("");
     setLoading(true);
     setShowResult(true);
-    let response;
-    if (prompt !== undefined) {
-      response = await runChat(prompt, context);
-      setRecentPrompt(prompt);
-    } else {
-      setPrevPrompts((prev) => [...prev, input]);
-      setRecentPrompt(input);
-      response = await runChat(input, context);
-    }
+    let response = await runChat(prompt, context, chats);
+    // if (prompt !== undefined) {
+    //   response = await runChat(prompt, context, chats);
+    //   setRecentPrompt(prompt);
+    // } else {
+    //   setPrevPrompts((prev) => [...prev, input]);
+    //   setRecentPrompt(input);
+    //   response = await runChat(input, context, chats);
+    // }
 
     let responseArray = response.split("**");
     let newResponse = "";
@@ -84,8 +110,15 @@ const ContextProvider: React.FC<Props> = (props) => {
       const nextWord = newResponseArray[i];
       delayPara(i, nextWord + " ");
     }
+    let recentResponse = {
+      role: "model",
+      parts: [{ text: response } as { text: string }],
+    };
+    setChats((prev) => [...prev, recentResponse]);
+    console.log(chats);
+
+    setIsFirst(false);
     setLoading(false);
-    setInput("");
   };
 
   const contextValue: ContextType = {
@@ -99,7 +132,10 @@ const ContextProvider: React.FC<Props> = (props) => {
     resultData,
     input,
     setInput,
+    isFirst,
     newChat,
+    chats,
+    setChats,
   };
 
   return (

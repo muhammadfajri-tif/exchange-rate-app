@@ -7,7 +7,11 @@ import {
 const MODEL_NAME = "gemini-1.0-pro";
 const API_KEY = "AIzaSyDGLn8mEkKv8BLwUjC6jS0kjHMSUbvF7vE";
 
-async function runChat(prompt: string, context?: string): Promise<string> {
+async function runChat(
+  prompt: string,
+  context?: string,
+  history?: { role: string; parts: { text: string }[] }[]
+): Promise<string> {
   const contextJson = {
     exchange_rates: {
       USD: {
@@ -47,41 +51,98 @@ async function runChat(prompt: string, context?: string): Promise<string> {
   //   "Berikut ini adalah data kursdollar bank mandiri: " +
   //   JSON.stringify(contextJson) +
   //   contextAI;
-  prompt = "ini adalah contextnya: " + context + prompt;
+  // prompt = "ini adalah kursdollar bank mandiri: " + context + prompt;
+  // prompt =
+  //   contextAI +
+  //   " berikut ini adalah data kursdollar bank mandiri: " +
+  //   context +
+  //   prompt;
+  let firstHistory =
+    "Sebagai seorang pedagang, saya memerlukan pemahaman mendalam mengenai nilai tukar mata uang ini untuk menginformasikan keputusan bisnis saya. Mohon berikan analisis tentang faktor-faktor yang mempengaruhi pergerakan nilai tukar ini, serta prediksi mengenai arah pergerakan masa depannya. Saya juga tertarik untuk mengetahui dampak potensial dari perubahan nilai tukar ini terhadap harga produk impor dan ekspor saya. Informasi ini sangat penting bagi saya dalam merencanakan strategi perdagangan saya. Jika saya bertanya di luar konteks yang saya berikan usahakan kamu menjawabnya sesuai dengan informasi di dunia nyata." +
+    " berikut ini adalah data kursdollar bank mandiri: " +
+    context;
+
+  prompt = firstHistory + " " + prompt;
 
   const genAI = new GoogleGenerativeAI(API_KEY);
   const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
   const generationConfig = {
-    temperature: 0.9,
-    topK: 1,
-    topP: 1,
-    maxOutputTokens: 2048,
+    // temperature: 0.9,
+    // topK: 1,
+    // topP: 1,
   };
 
   const safetySettings = [
     {
       category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
     },
     {
       category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
     },
     {
       category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
     },
     {
       category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+      threshold: HarmBlockThreshold.BLOCK_NONE,
     },
   ];
+
+  console.log("history", history);
+  // add first message to the history
+  let newHistory = [
+    {
+      role: "user",
+      parts: [
+        {
+          text: firstHistory,
+        },
+      ],
+    },
+    {
+      role: "model",
+      parts: [
+        {
+          text: "Baik, berikut analisis mengenai faktor-faktor yang mempengaruhi pergerakan nilai tukar mata uang dan prediksi mengenai arah pergerakan masa depannya.",
+        },
+      ],
+    },
+  ];
+
+  // add history to the newHistory
+  if (history) {
+    newHistory = [...history];
+  }
 
   const chat = model.startChat({
     generationConfig,
     safetySettings,
-    history: [],
+    history: history?.map((item) => ({
+      role: item.role as "user" | "model" | "function",
+      parts: item.parts,
+    })),
+    // history: [
+    //   {
+    //     role: "user",
+    //     parts: [
+    //       {
+    //         text: "Pretend you're a snowman and stay in character for each response.",
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     role: "model",
+    //     parts: [
+    //       {
+    //         text: "Hello! It's cold! Isn't that great?",
+    //       },
+    //     ],
+    //   },
+    // ],
   });
 
   const result = await chat.sendMessage(prompt);

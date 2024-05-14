@@ -3,6 +3,7 @@ import "./Chat.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/Context";
 import { useLocation } from "react-router-dom";
+import Markdown from "react-markdown";
 
 const Chat = () => {
   const {
@@ -10,9 +11,10 @@ const Chat = () => {
     recentPrompt,
     showResult,
     loading,
-    resultData,
+    chats,
     setInput,
     input,
+    isFirst,
   } = useContext(Context);
 
   const location = useLocation();
@@ -21,15 +23,19 @@ const Chat = () => {
   return (
     <div className="chat">
       <div className="nav">
-        <p>Gemini</p>
-        <img src={assets.user_icon} alt="" />
+        {/* button for navigate back */}
+        <img
+          onClick={() => window.history.back()}
+          src={assets.send_icon}
+          alt=""
+        />
       </div>
       <div className="chat-container">
         {!showResult ? (
           <>
             <div className="greet">
               <p>
-                <span>Hello, Dev.</span>
+                <span>Hello, Cantik.</span>
               </p>
               <p>How can I help you today..?</p>
             </div>
@@ -53,23 +59,57 @@ const Chat = () => {
             </div>
           </>
         ) : (
+          // map through chats
           <div className="result">
-            <div className="result-title">
-              <img src={assets.user_icon} alt="" />
-              <p>{recentPrompt}</p>
-            </div>
-            <div className="result-data">
-              <img src={assets.gemini_icon} alt="" />
-              {loading ? (
-                <div className="loader">
-                  <hr />
-                  <hr />
-                  <hr />
+            {isFirst ? (
+              <div>
+                <div className="result-title">
+                  <img src={assets.user_icon} alt="" />
+                  <p>{recentPrompt}</p>
                 </div>
-              ) : (
-                <p dangerouslySetInnerHTML={{ __html: resultData }}></p>
-              )}
-            </div>
+                <div className="result-data">
+                  <img src={assets.gemini_icon} alt="" />
+                  <div className="loader">
+                    <hr />
+                    <hr />
+                    <hr />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              chats.map((chat, index) =>
+                loading && index === chats.length - 1 ? (
+                  <div>
+                    <div key={index} className="result-title">
+                      <img src={assets.user_icon} alt="" />
+                      <p>{recentPrompt}</p>
+                    </div>
+                    <div key={index} className="result-data">
+                      <img src={assets.gemini_icon} alt="" />
+                      <div className="loader">
+                        <hr />
+                        <hr />
+                        <hr />
+                      </div>
+                    </div>
+                  </div>
+                ) : chat.role === "user" ? (
+                  <div>
+                    <div key={index} className="result-title">
+                      <img src={assets.user_icon} alt="" />
+                      <p>{chat.parts[0].text}</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div key={index} className="result-data">
+                    <img src={assets.gemini_icon} alt="" />
+                    <div className="result-text">
+                      <Markdown>{chat.parts[0].text}</Markdown>
+                    </div>
+                  </div>
+                )
+              )
+            )}
           </div>
         )}
 

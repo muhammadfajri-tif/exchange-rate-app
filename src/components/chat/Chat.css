@@ -140,10 +140,24 @@
   border-radius: 50%;
 }
 
+/* .result-data {
+  padding: 20px;
+  margin: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+} */
+
 .result-data {
   display: flex;
   align-items: start;
-  gap: 20px;
+  gap: 10px;
+  /* padding: 20px;
+  margin: 10px 0px; */
+}
+
+.result-text {
+  margin-left: 10px;
 }
 
 .loader {
@@ -173,6 +187,19 @@
 }
 
 .result-data p {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.result-data ul {
+  margin: 0px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.result-data li {
   font-size: 17px;
   font-weight: 300;
   line-height: 1.8;
