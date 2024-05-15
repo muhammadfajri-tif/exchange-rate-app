@@ -44,4 +44,10 @@
       display: none;
     }
   }
+  .box8 {
+    grid-column: span 4;
+    grid-row: span 1;
+
+    border: 0px;
+  }
 }

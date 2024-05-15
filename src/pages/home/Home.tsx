@@ -1,5 +1,6 @@
 import BarChartBox from "../../components/barChartBox/BarChartBox";
 import BigChartBox from "../../components/bigChartBox/BigChartBox";
+import Carousel from "../../components/carousel/Carousel";
 import ChartBox from "../../components/chartBox/ChartBox";
 import PieChartBox from "../../components/pieCartBox/PieChartBox";
 import TopBox from "../../components/topBox/TopBox";
@@ -11,13 +12,21 @@ import {
   chartBoxRevenue,
   chartBoxUser,
 } from "../../data";
+import CustomDropdown from "./CustomDropdown";
 import "./home.scss";
 
 const Home = () => {
   return (
     <div className="home">
+      <div className="box box8">
+        <Carousel />
+      </div>
       <div className="box box1">
         <TopBox />
+      </div>
+      <div className="App">
+        <h1>Custom Dropdown Select Menu</h1>
+        <CustomDropdown />
       </div>
       <div className="box box2">
         <ChartBox {...chartBoxUser} />

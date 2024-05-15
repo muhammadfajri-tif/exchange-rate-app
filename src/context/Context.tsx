@@ -1,5 +1,5 @@
 import React, { ReactNode, createContext, useState } from "react";
-import runChat from "../config/gemini";
+import { runChat } from "../config/gemini";
 
 interface Props {
   children: ReactNode; // ReactNode is a type for any React node

@@ -5,7 +5,8 @@ import {
 } from "@google/generative-ai";
 
 const MODEL_NAME = "gemini-1.0-pro";
-const API_KEY = "AIzaSyDGLn8mEkKv8BLwUjC6jS0kjHMSUbvF7vE";
+// const API_KEY = "AIzaSyDGLn8mEkKv8BLwUjC6jS0kjHMSUbvF7vE";
+const API_KEY = "AIzaSyA53I6jJG8ZpAbSqR55IBdimXEJ2I75QKg";
 
 async function runChat(
   prompt: string,
@@ -151,4 +152,25 @@ async function runChat(
   return response.text();
 }
 
-export default runChat;
+async function getResponse(prompt: string) {
+  // For text-only input, use the gemini-pro model
+  const genAI = new GoogleGenerativeAI(API_KEY);
+  const model = genAI.getGenerativeModel({ model: MODEL_NAME });
+
+  // add context for prompt to make it response as json
+  // prompt = prompt + " " + "tolong berikan response dalam bentuk json seperti berikut;
+  prompt =
+    prompt +
+    " " +
+    'tolong berikan response dalam bentuk json {"tips": ["tip1", "tip2", "tip3"]} dan jumlah tipsnya adalah 10 atau lebih. Juga buatlah response dalam kata-kata yang mudah dimengerti oleh orang awam yang tidak mengerti tentang kursdollar.';
+
+  const result = await model.generateContent(prompt);
+  const response = result.response;
+  const text = response.text();
+  // remove ** from the response
+  text.replace("**", "");
+  console.log(text);
+  return text;
+}
+
+export { runChat, getResponse };

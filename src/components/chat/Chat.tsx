@@ -35,7 +35,7 @@ const Chat = () => {
           <>
             <div className="greet">
               <p>
-                <span>Hello, Cantik.</span>
+                <span>Hello, Yahya</span>
               </p>
               <p>How can I help you today..?</p>
             </div>
@@ -141,8 +141,9 @@ const Chat = () => {
             </div>
           </div>
           <p className="bottom-info">
-            Gemiini may display inaccurate info, including about people, so
-            double-click its responses. Your privacy and Gemini Apps
+            Chat Bot ini menggunakan model dari Gemini. Mungkin tidak akan
+            memberikan jawaban yang akurat, sebab hanya memberikan jawaban
+            berdasarkan data yang ada.
           </p>
         </div>
       </div>

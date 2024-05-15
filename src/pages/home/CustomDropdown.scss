@@ -1,0 +1,68 @@
+// src/components/CustomDropdown.scss
+
+$border-color: #ccc;
+$border-radius: 4px;
+$padding: 8px 12px;
+$icon-margin: 8px;
+
+.custom-dropdown {
+  &__control {
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__menu {
+    border-radius: $border-radius;
+    border: 1px solid $border-color;
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    padding: $padding;
+  }
+
+  &__option--is-focused {
+    background-color: #f0f0f0;
+  }
+
+  &__single-value {
+    display: flex;
+    align-items: center;
+  }
+}
+
+// Font Awesome Icons
+.icon-github::before {
+  content: "\f09b";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  margin-right: $icon-margin;
+}
+
+.icon-instagram::before {
+  content: "\f16d";
+  font-family: 'Font Awesome 5 Brands';
+  margin-right: $icon-margin;
+}
+
+.icon-linkedin::before {
+  content: "\f08c";
+  font-family: 'Font Awesome 5 Brands';
+  margin-right: $icon-margin;
+}
+
+.icon-facebook::before {
+  content: "\f09a";
+  font-family: 'Font Awesome 5 Brands';
+  margin-right: $icon-margin;
+}
+
+.icon-twitter::before {
+  content: "\f099";
+  font-family: 'Font Awesome 5 Brands';
+  margin-right: $icon-margin;
+}
