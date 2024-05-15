@@ -1,0 +1,247 @@
+[
+    {
+        "date": "10/5/2024",
+        "bank": "BCA",
+        "type": "DD/TT",
+        "IDRExchangeRate": {
+            "USD": {
+                "buying": 15920,
+                "selling": 16220
+            },
+            "SGD": {
+                "buying": 15731,
+                "selling": 11962
+            },
+            "EUR": {
+                "buying": 17073,
+                "selling": 17445
+            },
+            "GBP": {
+                "buying": 19852,
+                "selling": 20277
+            },
+            "CNY": {
+                "buying": 2165,
+                "selling": 2282
+            },
+            "JPY": {
+                "buying": 201,
+                "selling": 105
+            },
+            "SAR": {
+                "buying": 4194,
+                "selling": 4349
+            }
+        }
+    },
+    {
+        "date": "13/5/2024",
+        "bank": "BCA",
+        "type": "DD/TT",
+        "IDRExchangeRate": {
+            "USD": {
+                "buying": 15990,
+                "selling": 16240
+            },
+            "SGD": {
+                "buying": 13751,
+                "selling": 11992
+            },
+            "EUR": {
+                "buying": 14173,
+                "selling": 17545
+            },
+            "GBP": {
+                "buying": 19952,
+                "selling": 20577
+            },
+            "CNY": {
+                "buying": 2565,
+                "selling": 2582
+            },
+            "JPY": {
+                "buying": 501,
+                "selling": 205
+            },
+            "SAR": {
+                "buying": 4394,
+                "selling": 4249
+            }
+        }
+    },
+    {
+        "date": "14/5/2024",
+        "bank": "BCA",
+        "type": "DD/TT",
+        "IDRExchangeRate": {
+            "USD": {
+                "buying": 19990,
+                "selling": 16240
+            },
+            "SGD": {
+                "buying": 16751,
+                "selling": 11992
+            },
+            "EUR": {
+                "buying": 15173,
+                "selling": 17545
+            },
+            "GBP": {
+                "buying": 19952,
+                "selling": 20577
+            },
+            "CNY": {
+                "buying": 19065,
+                "selling": 2582
+            },
+            "JPY": {
+                "buying": 301,
+                "selling": 205
+            },
+            "SAR": {
+                "buying": 4394,
+                "selling": 4249
+            }
+        }
+    },
+    {
+        "date": "15/5/2024",
+        "bank": "BCA",
+        "type": "DD/TT",
+        "IDRExchangeRate": {
+            "USD": {
+                "buying": 15990,
+                "selling": 16240
+            },
+            "SGD": {
+                "buying": 11751,
+                "selling": 11992
+            },
+            "EUR": {
+                "buying": 17173,
+                "selling": 17545
+            },
+            "GBP": {
+                "buying": 19952,
+                "selling": 20577
+            },
+            "CNY": {
+                "buying": 2565,
+                "selling": 2582
+            },
+            "JPY": {
+                "buying": 201,
+                "selling": 205
+            },
+            "SAR": {
+                "buying": 4394,
+                "selling": 4249
+            }
+        }
+    },
+    {
+        "date": "16/5/2024",
+        "bank": "BCA",
+        "type": "DD/TT",
+        "IDRExchangeRate": {
+            "USD": {
+                "buying": 20990,
+                "selling": 16240
+            },
+            "SGD": {
+                "buying": 11751,
+                "selling": 11992
+            },
+            "EUR": {
+                "buying": 17173,
+                "selling": 17545
+            },
+            "GBP": {
+                "buying": 19952,
+                "selling": 20577
+            },
+            "CNY": {
+                "buying": 2565,
+                "selling": 2582
+            },
+            "JPY": {
+                "buying": 201,
+                "selling": 205
+            },
+            "SAR": {
+                "buying": 4394,
+                "selling": 4249
+            }
+        }
+    },
+    {
+        "date": "17/5/2024",
+        "bank": "BCA",
+        "type": "DD/TT",
+        "IDRExchangeRate": {
+            "USD": {
+                "buying": 20990,
+                "selling": 16240
+            },
+            "SGD": {
+                "buying": 11751,
+                "selling": 11992
+            },
+            "EUR": {
+                "buying": 17173,
+                "selling": 17545
+            },
+            "GBP": {
+                "buying": 19952,
+                "selling": 20577
+            },
+            "CNY": {
+                "buying": 2565,
+                "selling": 2582
+            },
+            "JPY": {
+                "buying": 201,
+                "selling": 205
+            },
+            "SAR": {
+                "buying": 4394,
+                "selling": 4249
+            }
+        }
+    },
+    {
+        "date": "18/5/2024",
+        "bank": "BCA",
+        "type": "DD/TT",
+        "IDRExchangeRate": {
+            "USD": {
+                "buying": 20990,
+                "selling": 16240
+            },
+            "SGD": {
+                "buying": 11751,
+                "selling": 11992
+            },
+            "EUR": {
+                "buying": 17173,
+                "selling": 17545
+            },
+            "GBP": {
+                "buying": 19952,
+                "selling": 20577
+            },
+            "CNY": {
+                "buying": 2565,
+                "selling": 2582
+            },
+            "JPY": {
+                "buying": 201,
+                "selling": 205
+            },
+            "SAR": {
+                "buying": 4394,
+                "selling": 4249
+            }
+        }
+    }
+]

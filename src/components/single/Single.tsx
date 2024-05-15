@@ -8,6 +8,7 @@ import {
   YAxis,
 } from "recharts";
 import "./single.scss";
+import ApexCharts from "../apexChart/ApexChart";
 
 type Props = {
   id: number;
@@ -27,20 +28,19 @@ const Single = (props: Props) => {
       <div className="view">
         <div className="info">
           <div className="topInfo">
-            {props.img && <img src={props.img} alt="" />}
-            <h1>{props.title}</h1>
-            <button>Update</button>
+            {props.img && <img src={props.img} alt="BCA" />}
           </div>
           <div className="details">
             {Object.entries(props.info).map((item) => (
               <div className="item" key={item[0]}>
-                <span className="itemTitle">{item[0]}</span>
+                <span className="itemTitle">{String(item[0]).split("_").map(x=>x+" ")}</span>
                 <span className="itemValue">{item[1]}</span>
               </div>
             ))}
           </div>
         </div>
         <hr />
+        <ApexCharts />
         {props.chart && (
           <div className="chart">
             <ResponsiveContainer width="100%" height="100%">
