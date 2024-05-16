@@ -88,7 +88,7 @@ export default function Chart() {
             yaxis: {
                 labels: {
                     style: labelStyle.style,
-                    formatter: (val: number) => `Rp.${val}`
+                    formatter: (val: number) => `Rp ${val.toLocaleString('id-ID')}`
                 }
             },
             legend: {
@@ -101,7 +101,7 @@ export default function Chart() {
             tooltip: {
                 theme: 'dark' as const,
                 y: {
-                    formatter: (value: number) => `Rp.${value.toFixed(2)}`,
+                    formatter: (val: number) => `Rp ${val.toLocaleString('id-ID')}`,
                     title: {
                         formatter: (seriesName: string) => seriesName,
                     }
