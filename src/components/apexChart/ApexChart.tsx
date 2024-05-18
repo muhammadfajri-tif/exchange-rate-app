@@ -1,9 +1,11 @@
 import { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import data from "../../data/data.json";
+import "./apexChart.scss";
 
 interface ExchangeRate {
     buying: number;
+    selling: number;
 }
 
 interface Data {
@@ -15,26 +17,45 @@ interface Data {
         EUR: ExchangeRate;
         GBP: ExchangeRate;
         JPY: ExchangeRate;
+        SAR: ExchangeRate;
     };
 }
 
 export default function Chart() {
-    const date: string[] = [];
+    const [isBuying, setIsBuying] = useState(true);
+
+    const dates: string[] = [];
     const buyValueUSD: number[] = [];
     const buyValueCNY: number[] = [];
     const buyValueSGD: number[] = [];
     const buyValueEUR: number[] = [];
     const buyValueGBP: number[] = [];
     const buyValueJPY: number[] = [];
+    const buyValueSAR: number[] = [];
+    const sellValueUSD: number[] = [];
+    const sellValueCNY: number[] = [];
+    const sellValueSGD: number[] = [];
+    const sellValueEUR: number[] = [];
+    const sellValueGBP: number[] = [];
+    const sellValueJPY: number[] = [];
+    const sellValueSAR: number[] = [];
 
     data.forEach((x: Data) => {
-        date.push(x.date);
+        dates.push(x.date);
         buyValueUSD.push(x.IDRExchangeRate.USD.buying);
         buyValueCNY.push(x.IDRExchangeRate.CNY.buying);
         buyValueSGD.push(x.IDRExchangeRate.SGD.buying);
         buyValueEUR.push(x.IDRExchangeRate.EUR.buying);
         buyValueGBP.push(x.IDRExchangeRate.GBP.buying);
         buyValueJPY.push(x.IDRExchangeRate.JPY.buying);
+        buyValueSAR.push(x.IDRExchangeRate.SAR.buying);
+        sellValueUSD.push(x.IDRExchangeRate.USD.selling);
+        sellValueCNY.push(x.IDRExchangeRate.CNY.selling);
+        sellValueSGD.push(x.IDRExchangeRate.SGD.selling);
+        sellValueEUR.push(x.IDRExchangeRate.EUR.selling);
+        sellValueGBP.push(x.IDRExchangeRate.GBP.selling);
+        sellValueJPY.push(x.IDRExchangeRate.JPY.selling);
+        sellValueSAR.push(x.IDRExchangeRate.SAR.selling);
     });
 
     const labelStyle = {
@@ -44,14 +65,15 @@ export default function Chart() {
         }
     };
 
-    const [state] = useState({
+    const [state, setState] = useState({
         series: [
-            { name: "USD", data: buyValueUSD },
-            { name: "CNY", data: buyValueCNY },
-            { name: "SGD", data: buyValueSGD },
-            { name: "EUR", data: buyValueEUR },
-            { name: "GBP", data: buyValueGBP },
-            { name: "JPY", data: buyValueJPY }
+            { name: "USD", data: isBuying ? buyValueUSD : sellValueUSD },
+            { name: "CNY", data: isBuying ? buyValueCNY : sellValueCNY },
+            { name: "SGD", data: isBuying ? buyValueSGD : sellValueSGD },
+            { name: "EUR", data: isBuying ? buyValueEUR : sellValueEUR },
+            { name: "GBP", data: isBuying ? buyValueGBP : sellValueGBP },
+            { name: "JPY", data: isBuying ? buyValueJPY : sellValueJPY },
+            { name: "SAR", data: isBuying ? buyValueSAR : sellValueSAR }
         ],
         options: {
             chart: {
@@ -60,9 +82,6 @@ export default function Chart() {
                 zoom: {
                     enabled: false
                 }
-            },
-            dataLabels: {
-                enabled: false,
             },
             stroke: {
                 curve: 'straight' as const
@@ -76,13 +95,15 @@ export default function Chart() {
                 }
             },
             grid: {
-                row: {
-                    colors: ['#fff', 'transparent'], // takes an array which will be repeated on columns
-                    opacity: 0.5
-                },
+                borderColor: 'black' as const,
+                xaxis:{
+                    lines:{
+                        show: true
+                    }
+                }
             },
             xaxis: {
-                categories: date,
+                categories: dates,
                 labels: labelStyle
             },
             yaxis: {
@@ -99,6 +120,8 @@ export default function Chart() {
                 fontSize: '14px'
             },
             tooltip: {
+                shared: false,
+                followCursor: false,
                 theme: 'dark' as const,
                 y: {
                     formatter: (val: number) => `Rp ${val.toLocaleString('id-ID')}`,
@@ -117,7 +140,27 @@ export default function Chart() {
         }
     });
 
+    const toggleData = () => {
+        setIsBuying(!isBuying);
+        setState(prevState => ({
+            ...prevState,
+            series: [
+                { name: "USD", data: isBuying ? sellValueUSD : buyValueUSD },
+                { name: "CNY", data: isBuying ? sellValueCNY : buyValueCNY },
+                { name: "SGD", data: isBuying ? sellValueSGD : buyValueSGD },
+                { name: "EUR", data: isBuying ? sellValueEUR : buyValueEUR },
+                { name: "GBP", data: isBuying ? sellValueGBP : buyValueGBP },
+                { name: "JPY", data: isBuying ? sellValueJPY : buyValueJPY }
+            ]
+        }));
+    };
+
     return (
-        <ReactApexChart options={state.options} series={state.series} type="line" height={350} />
+        <>
+        <button onClick={toggleData}>
+                {isBuying ? "Selling" : "Buying"} Rates
+        </button>
+        <ReactApexChart options={state.options} series={state.series} type="line" height={400} />
+        </>
     );
 }

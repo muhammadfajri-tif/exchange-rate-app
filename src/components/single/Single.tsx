@@ -1,12 +1,12 @@
-import {
-  Legend,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+// import {
+//   Legend,
+//   Line,
+//   LineChart,
+//   ResponsiveContainer,
+//   Tooltip,
+//   XAxis,
+//   YAxis,
+// } from "recharts";
 import "./single.scss";
 import ApexCharts from "../apexChart/ApexChart";
 
@@ -28,7 +28,7 @@ const Single = (props: Props) => {
       <div className="view">
         <div className="info">
           <div className="topInfo">
-            {props.img && <img src={props.img} alt="BCA" />}
+            {props.img && <img src={props.img} alt="" />}
           </div>
           <div className="details">
             {Object.entries(props.info).map((item) => (
@@ -41,7 +41,7 @@ const Single = (props: Props) => {
         </div>
         <hr />
         <ApexCharts />
-        {props.chart && (
+        {/* {props.chart && (
           <div className="chart">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
@@ -69,9 +69,9 @@ const Single = (props: Props) => {
               </LineChart>
             </ResponsiveContainer>
           </div>
-        )}
+        )} */}
       </div>
-      <div className="activities">
+      {/* <div className="activities">
         <h2>Latest Activities</h2>
         {props.activities && (
           <ul>
@@ -85,7 +85,7 @@ const Single = (props: Props) => {
             ))}
           </ul>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
