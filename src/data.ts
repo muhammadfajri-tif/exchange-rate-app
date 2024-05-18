@@ -563,10 +563,10 @@ export const singleUser = {
   img: "//upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bank_Central_Asia.svg/799px-Bank_Central_Asia.svg.png",
   info: {
     jenis_kurs: "Bank Notes, DD/TT, E-rate",
-    fullname: "John Doe",
-    email: "johndoe@gmail.com",
-    phone: "123 456 789",
-    status: "verified",
+    // fullname: "John Doe",
+    // email: "johndoe@gmail.com",
+    // phone: "123 456 789",
+    // status: "verified",
   },
   chart: {
     dataKeys: [

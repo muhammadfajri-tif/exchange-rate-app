@@ -635,16 +635,16 @@
         "type": "DD/TT",
         "IDRExchangeRate": {
             "USD": {
-                "buying": 16800,
-                "selling": 17100
+                "buying": 6800,
+                "selling": 7100
             },
             "SGD": {
-                "buying": 16600,
-                "selling": 16800
+                "buying": 10600,
+                "selling": 9800
             },
             "EUR": {
-                "buying": 18000,
-                "selling": 18300
+                "buying": 1000,
+                "selling": 9300
             },
             "GBP": {
                 "buying": 20800,
@@ -690,12 +690,12 @@
                 "selling": 3200
             },
             "JPY": {
-                "buying": 295,
-                "selling": 300
+                "buying": 10295,
+                "selling": 12300
             },
             "SAR": {
-                "buying": 5100,
-                "selling": 5250
+                "buying": 15100,
+                "selling": 25250
             }
         }
     },
@@ -1125,16 +1125,16 @@
         "type": "DD/TT",
         "IDRExchangeRate": {
             "USD": {
-                "buying": 17500,
-                "selling": 17800
+                "buying": 7500,
+                "selling": 7800
             },
             "SGD": {
-                "buying": 17300,
-                "selling": 17500
+                "buying": 7300,
+                "selling": 20500
             },
             "EUR": {
-                "buying": 18700,
-                "selling": 19000
+                "buying": 8700,
+                "selling": 9000
             },
             "GBP": {
                 "buying": 21500,
@@ -1145,12 +1145,12 @@
                 "selling": 3850
             },
             "JPY": {
-                "buying": 360,
+                "buying": 20360,
                 "selling": 365
             },
             "SAR": {
-                "buying": 5750,
-                "selling": 5900
+                "buying": 15750,
+                "selling": 15900
             }
         }
     },

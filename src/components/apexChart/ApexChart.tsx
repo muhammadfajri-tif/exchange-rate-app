@@ -81,6 +81,11 @@ export default function Chart() {
                 type: 'line' as const,
                 zoom: {
                     enabled: false
+                },
+                toolbar: {
+                    tools: {
+                        download: false
+                    }
                 }
             },
             stroke: {
@@ -96,8 +101,8 @@ export default function Chart() {
             },
             grid: {
                 borderColor: 'black' as const,
-                xaxis:{
-                    lines:{
+                xaxis: {
+                    lines: {
                         show: true
                     }
                 }
@@ -136,7 +141,7 @@ export default function Chart() {
                 background: {
                     color: '#fff' // this will set the background color to white.
                 }
-            }
+            },
         }
     });
 
@@ -156,11 +161,18 @@ export default function Chart() {
     };
 
     return (
-        <>
-        <button onClick={toggleData}>
-                {isBuying ? "Selling" : "Buying"} Rates
-        </button>
-        <ReactApexChart options={state.options} series={state.series} type="line" height={400} />
-        </>
+        <div>
+            <span>
+                <button onClick={toggleData}>
+                    {isBuying ? "Selling" : "Buying"} Rates
+                </button>
+                <select name="kurs-type" id="kurs-type">
+                    <option value="Bank Notes">Bank Notes</option>
+                    <option value="DD/TT">DD/TT</option>
+                    <option value="E-rate">E-rate</option>
+                </select>
+            </span>
+            <ReactApexChart options={state.options} series={state.series} type="line" height={400} />
+        </div>
     );
 }
