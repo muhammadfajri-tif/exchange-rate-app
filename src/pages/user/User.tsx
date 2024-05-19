@@ -1,16 +1,25 @@
-import Single from "../../components/single/Single"
-import { singleUser } from "../../data"
-import "./user.scss"
+import BcaProfile from "../../components/bankProfile/BcaProfile";
+import BniProfile from '../../components/bankProfile/BniProfile';
+import { singleUser } from "../../data";
+import "./user.scss";
+import { useParams } from 'react-router-dom';
 
 const User = () => {
-
-  //Fetch data and send to Single Component
-  
+  const { id } = useParams();
+  // Fetch data and send to Single Component
   return (
     <div className="user">
-      <Single {...singleUser}/>
+      {id === "BCA" ? (
+        <BcaProfile users={singleUser} />
+      ) : id === "BNI" ? (
+        <BniProfile users={singleUser}/>
+      ) : (
+        <div>
+          <h1>User ID: {id}</h1>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default User
+export default User;

@@ -12,7 +12,7 @@ export const menu = [
       {
         id: 2,
         title: "Profile",
-        url: "/users/1",
+        url: "/users/BCA",
         icon: "user.svg",
       },
     ],
@@ -557,87 +557,24 @@ export const products = [
 
 
 
-export const singleUser = {
-  id: 1,
-  title: "BCA",
-  img: "//upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bank_Central_Asia.svg/799px-Bank_Central_Asia.svg.png",
-  info: {
-    jenis_kurs: "Bank Notes, DD/TT, E-rate",
-    // fullname: "John Doe",
-    // email: "johndoe@gmail.com",
-    // phone: "123 456 789",
-    // status: "verified",
+export const singleUser = [
+  {
+    id: 1,
+    title: "BCA",
+    img: "//upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bank_Central_Asia.svg/799px-Bank_Central_Asia.svg.png",
+    info: {
+      jenis_kurs: "Bank Notes, DD/TT, E-rate",
+    },
   },
-  chart: {
-    dataKeys: [
-      { name: "visits", color: "#82ca9d" },
-      { name: "clicks", color: "#8884d8" },
-    ],
-    data: [
-      {
-        name: "Sun",
-        visits: 4000,
-        clicks: 2400,
-      },
-      {
-        name: "Mon",
-        visits: 3000,
-        clicks: 1398,
-      },
-      {
-        name: "Tue",
-        visits: 2000,
-        clicks: 3800,
-      },
-      {
-        name: "Wed",
-        visits: 2780,
-        clicks: 3908,
-      },
-      {
-        name: "Thu",
-        visits: 1890,
-        clicks: 4800,
-      },
-      {
-        name: "Fri",
-        visits: 2390,
-        clicks: 3800,
-      },
-      {
-        name: "Sat",
-        visits: 3490,
-        clicks: 4300,
-      },
-    ],
-  },
-  activities: [
-    {
-      text: "John Doe purchased Playstation 5 Digital Edition",
-      time: "3 day ago",
+  {
+    id: 2,
+    title: "BNI",
+    img: "https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/400px-BNI_logo.svg.png?20240305030303",
+    info: {
+      jenis_kurs: "Bank Notes, DD/TT",
     },
-    {
-      text: "John Doe added 3 items into their wishlist",
-      time: "1 week ago",
-    },
-    {
-      text: "John Doe purchased Sony Bravia KD-32w800",
-      time: "2 weeks ago",
-    },
-    {
-      text: "John Doe reviewed a product",
-      time: "1 month ago",
-    },
-    {
-      text: "John Doe added 1 items into their wishlist",
-      time: "1 month ago",
-    },
-    {
-      text: "John Doe reviewed a product",
-      time: "2 months ago",
-    },
-  ],
-};
+  }
+]
 export const singleProduct = {
   id: 1,
   title: "Playstation 5 Digital Edition",

@@ -86,6 +86,19 @@ export default function Chart() {
                     tools: {
                         download: false
                     }
+                },
+                animations: {
+                    enabled: true,
+                    easing: 'easeinout' as const,
+                    speed: 800,
+                    animateGradually: {
+                        enabled: true,
+                        delay: 150
+                    },
+                    dynamicAnimation: {
+                        enabled: true,
+                        speed: 350
+                    }
                 }
             },
             stroke: {
