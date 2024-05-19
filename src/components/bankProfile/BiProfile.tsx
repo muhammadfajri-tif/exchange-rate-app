@@ -34,12 +34,12 @@ const Single = ({ users }: PropsArray) => {
                 <div className="info">
                     <div className="topInfo">
                         {users.map(user => (
-                            user.id === 2 && <img key={user.id} src={user.img} alt="Image" />
+                            user.id === 3 && <img key={user.id} src={user.img} alt="Image" />
                         ))}
                     </div>
                     <div className="details">
                         {users.map(user => (
-                            user.id === 2 &&
+                            user.id === 3 &&
                             Object.entries(user.info).map((item, index) => (
                                 <div className="item" key={index}>
                                     <span className="itemTitle">{String(item[0]).split("_").join(" ")}</span>

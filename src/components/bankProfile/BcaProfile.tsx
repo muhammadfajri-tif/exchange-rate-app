@@ -9,6 +9,7 @@
 // } from "recharts";
 import "./single.scss";
 import ApexCharts from "../apexChart/ApexChart";
+import BankMenu from "../bankMenu/BankMenu";
 
 type InfoType = {
   jenis_kurs: string;
@@ -17,7 +18,7 @@ type InfoType = {
 
 type Props = {
   id: number;
-  img?: string;
+  img?: string; 
   title: string;
   info: InfoType;
 };
@@ -50,6 +51,7 @@ const Single = ({ users }: PropsArray) => {
         </div>
         <hr />
         <ApexCharts />
+        <BankMenu />
       </div>
     </div>
   );

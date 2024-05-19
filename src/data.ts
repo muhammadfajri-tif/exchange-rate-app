@@ -1,3 +1,14 @@
+export const bankMenu = {
+  BCA:'/users/BCA',
+  BNI:'/users/BNI',
+  BI:'/users/BI',
+  Mandiri:'/users/Mandiri',
+  HSBC:'/users/HSBC',
+  Panin:'/users/Panin',
+  Permata:'/users/Permata',
+  OCBC:'/users/OCBC',
+}
+
 export const menu = [
   {
     id: 1,
@@ -572,6 +583,14 @@ export const singleUser = [
     img: "https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/400px-BNI_logo.svg.png?20240305030303",
     info: {
       jenis_kurs: "Bank Notes, DD/TT",
+    },
+  },
+  {
+    id: 3,
+    title: "BI",
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/BI_Logo.png/799px-BI_Logo.png",
+    info: {
+      jenis_kurs: "Bank Notes",
     },
   }
 ]
