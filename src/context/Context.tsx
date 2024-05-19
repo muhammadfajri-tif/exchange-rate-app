@@ -22,6 +22,10 @@ interface ContextType {
     React.SetStateAction<{ role: string; parts: { text: string }[] }[]>
   >;
   newChat: () => void;
+  tips: string[];
+  setTips: React.Dispatch<React.SetStateAction<string[]>>;
+  carouseLoading: boolean;
+  setCarouseloading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Context = createContext<ContextType>({
@@ -39,6 +43,10 @@ export const Context = createContext<ContextType>({
   setChats: () => {},
   setInput: () => {},
   newChat: () => {},
+  tips: [],
+  setTips: () => {},
+  carouseLoading: true,
+  setCarouseloading: () => {},
 });
 
 const ContextProvider: React.FC<Props> = (props) => {
@@ -52,6 +60,8 @@ const ContextProvider: React.FC<Props> = (props) => {
   const [loading, setLoading] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
   const [resultData, setResultData] = useState("");
+  const [tips, setTips] = useState<string[]>([]);
+  const [carouseLoading, setCarouseloading] = useState<boolean>(true);
 
   const delayPara = (index: number, nextWord: string) => {
     setTimeout(function () {
@@ -136,6 +146,10 @@ const ContextProvider: React.FC<Props> = (props) => {
     newChat,
     chats,
     setChats,
+    tips,
+    setTips,
+    carouseLoading,
+    setCarouseloading,
   };
 
   return (

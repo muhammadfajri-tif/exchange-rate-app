@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Carousel.scss";
-import { getResponse } from "../../config/gemini"; // Adjust the import based on your project structure
+import { getResponse } from "../../config/gemini";
+import { Context } from "../../context/Context";
 
 const Carousel: React.FC = () => {
-  const [tips, setTips] = useState<string[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const {
+    tips,
+    setTips,
+    carouseLoading: loading,
+    setCarouseloading: setLoading,
+  } = useContext(Context);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +47,8 @@ const Carousel: React.FC = () => {
         await fetchData(); // Retry fetching data if failed
       }
     };
+
+    if (tips.length > 0) return; // Fetch data only if tips is empty (on first render
 
     fetchData();
   }, []);
