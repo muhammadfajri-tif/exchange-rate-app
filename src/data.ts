@@ -1,15 +1,15 @@
 export const bankMenu = {
-  BCA:'/users/BCA',
-  BNI:'/users/BNI',
-  BI:'/users/BI',
-  BRI:'/users/BRI',
-  Mandiri:'/users/Mandiri',
-  HSBC:'/users/HSBC',
-  Panin:'/users/Panin',
-  Permata:'/users/Permata',
-  OCBC:'/users/OCBC',
-  CIMB:'/users/CIMB'
-}
+  BCA: "/users/BCA",
+  BNI: "/users/BNI",
+  BI: "/users/BI",
+  BRI: "/users/BRI",
+  Mandiri: "/users/Mandiri",
+  HSBC: "/users/HSBC",
+  Panin: "/users/Panin",
+  Permata: "/users/Permata",
+  OCBC: "/users/OCBC",
+  CIMB: "/users/CIMB",
+};
 
 export const menu = [
   {
@@ -27,6 +27,12 @@ export const menu = [
         title: "Profile",
         url: "/users/BCA",
         icon: "user.svg",
+      },
+      {
+        id: 3,
+        title: "Ask AI",
+        url: "/ask-ai",
+        icon: "log.svg",
       },
     ],
   },
@@ -568,8 +574,6 @@ export const products = [
   },
 ];
 
-
-
 export const singleUser = [
   {
     id: 1,
@@ -610,43 +614,48 @@ export const singleUser = [
     info: {
       jenis_kurs: "Bank Notes, DD/TT",
     },
-  },{
+  },
+  {
     id: 6,
     title: "Panin",
     img: "//upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Logo_Panin_Bank.svg/800px-Logo_Panin_Bank.svg.png",
     info: {
       jenis_kurs: "Bank Notes, DD/TT, e-Rate",
     },
-  },{
+  },
+  {
     id: 7,
     title: "Permata",
     img: "//upload.wikimedia.org/wikipedia/en/thumb/4/48/PermataBank_logo.svg/220px-PermataBank_logo.svg.png",
     info: {
       jenis_kurs: "Bank Notes, DD/TT",
     },
-  },{
+  },
+  {
     id: 8,
     title: "OCBC",
     img: "//upload.wikimedia.org/wikipedia/commons/thumb/5/54/OCBC_Bank_logo.png/800px-OCBC_Bank_logo.png",
     info: {
       jenis_kurs: "Bank Notes, DD/TT",
     },
-  },{
+  },
+  {
     id: 9,
     title: "CIMB",
     img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/CIMB_Niaga_logo.svg/800px-CIMB_Niaga_logo.svg.png",
     info: {
       jenis_kurs: "Bank Notes",
     },
-  },{
+  },
+  {
     id: 10,
     title: "BRI",
     img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/BANK_BRI_logo.svg/640px-BANK_BRI_logo.svg.png",
     info: {
       jenis_kurs: "Bank Notes, DD/TT, e-Rate",
     },
-  }
-]
+  },
+];
 export const singleProduct = {
   id: 1,
   title: "Playstation 5 Digital Edition",
