@@ -13,18 +13,16 @@
 
     .info {
       .topInfo {
-        display: flex;
+        padding: 0.5rem;
+        display: inline-block;
         align-items: center;
-        gap: 20px;  
+        gap: 20px;
+        background-color: aliceblue;
 
         img {
           width: 200px;
           // border-radius: 20px;
           // object-fit: cover;
-        }
-
-        h1 {
-          font-weight: 500;
         }
       }
       .details {

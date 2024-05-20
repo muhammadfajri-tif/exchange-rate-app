@@ -2,24 +2,7 @@ import { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import data from "../../data/data.json";
 import "./apexChart.scss";
-
-interface ExchangeRate {
-    buying: number;
-    selling: number;
-}
-
-interface Data {
-    date: string;
-    IDRExchangeRate: {
-        USD: ExchangeRate;
-        CNY: ExchangeRate;
-        SGD: ExchangeRate;
-        EUR: ExchangeRate;
-        GBP: ExchangeRate;
-        JPY: ExchangeRate;
-        SAR: ExchangeRate;
-    };
-}
+import { Data } from "../../types/types";
 
 export default function Chart() {
     const [isBuying, setIsBuying] = useState(true);
