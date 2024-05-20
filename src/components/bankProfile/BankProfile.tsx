@@ -13,6 +13,11 @@ import BankMenu from "../bankMenu/BankMenu";
 import { BankProfileProps } from "../../types/types";
 
 const BankProfile = ({ users, bankId }: BankProfileProps) => {
+    const currentUser = users.find(user => user.id === bankId);
+
+    if (!currentUser) {
+        return <div>User not found</div>;
+    }
     return (
         <div className="single">
             <div className="view">
@@ -35,7 +40,7 @@ const BankProfile = ({ users, bankId }: BankProfileProps) => {
                     </div>
                 </div>
                 <hr />
-                <ApexCharts />
+                <ApexCharts info={currentUser.info}/>
                 <BankMenu />
             </div>
         </div>

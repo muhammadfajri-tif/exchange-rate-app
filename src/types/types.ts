@@ -10,6 +10,10 @@ export type Props = {
     info: InfoType;
 };
 
+export interface InfoChartProps {
+    info: InfoType;
+}
+
 export type BankProfileProps = {
     users: Props[];
     bankId: number;

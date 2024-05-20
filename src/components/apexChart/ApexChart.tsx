@@ -2,9 +2,9 @@ import { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import data from "../../data/data.json";
 import "./apexChart.scss";
-import { Data } from "../../types/types";
+import { Data, InfoChartProps } from "../../types/types";
 
-export default function Chart() {
+export default function Chart({info}:InfoChartProps) {
     const [isBuying, setIsBuying] = useState(true);
 
     const dates: string[] = [];
@@ -163,9 +163,9 @@ export default function Chart() {
                     {isBuying ? "Selling" : "Buying"} Rates
                 </button>
                 <select name="kurs-type" id="kurs-type">
-                    <option value="Bank Notes">Bank Notes</option>
-                    <option value="DD/TT">DD/TT</option>
-                    <option value="E-rate">E-rate</option>
+                    {info.jenis_kurs.split(",").map(type=>(
+                        <option value={type}>{type}</option>
+                    ))}
                 </select>
             </span>
             <ReactApexChart options={state.options} series={state.series} type="line" height={400} />
