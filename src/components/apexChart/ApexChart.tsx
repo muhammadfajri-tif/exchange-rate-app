@@ -5,7 +5,7 @@ import { InfoChartProps, ChartState } from "../../types/types";
 import exchange from "../../data/exchange-rates.json";
 
 const convertTimestampToDate = (timestamp: number): string => {
-    const months = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Aug","Sep","Okt","Nov","Dec"];
+    const months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
     const date = new Date(timestamp * 1000);
     const day = date.getDate();
     const month = months[date.getMonth()];
@@ -38,7 +38,7 @@ export default function Chart({ currentUser }: InfoChartProps) {
         const sellValueJPY: number[] = [];
         const sellValueSAR: number[] = [];
 
-        exchange.forEach((res) => {
+        exchange.slice().reverse().forEach((res) => {
             if (res.bank.toLowerCase() === currentUser.title.toLowerCase() && res.type === selectedKursType.toLowerCase().trim()) {
                 dates.push(convertTimestampToDate(res.date));
                 buyValueUSD.push(res.IDRExchangeRate.USD.buy);
@@ -101,9 +101,6 @@ export default function Chart({ currentUser }: InfoChartProps) {
                         },
                     },
                 },
-                stroke: {
-                    curve: "straight" as const,
-                },
                 title: {
                     text: currentUser.title,
                     align: "center" as const,
@@ -113,8 +110,8 @@ export default function Chart({ currentUser }: InfoChartProps) {
                     },
                 },
                 grid: {
-                    borderColor: "black" as const,
-                    xaxis: {
+                    borderColor: "#999" as const,
+                    yaxis: {
                         lines: {
                             show: true,
                         },
@@ -122,7 +119,11 @@ export default function Chart({ currentUser }: InfoChartProps) {
                 },
                 xaxis: {
                     categories: dates,
-                    labels: labelStyle,
+                    labels: {
+                        style: labelStyle.style,
+                        rotate: 0
+                    },
+                    tickAmount: Math.floor(dates.length / 10),
                 },
                 yaxis: {
                     labels: {
