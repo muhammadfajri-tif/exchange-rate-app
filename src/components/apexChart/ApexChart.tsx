@@ -1,159 +1,166 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
-import data from "../../data/data.json";
 import "./apexChart.scss";
-import { Data, InfoChartProps } from "../../types/types";
+import { InfoChartProps, ChartState } from "../../types/types";
+import exchange from "../../data/exchange-rates.json";
 
-export default function Chart({info}:InfoChartProps) {
+const convertTimestampToDate = (timestamp: number): string => {
+    const months = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Aug","Sep","Okt","Nov","Dec"];
+    const date = new Date(timestamp * 1000);
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    return `${day}-${month}`;
+};
+
+export default function Chart({ currentUser }: InfoChartProps) {
     const [isBuying, setIsBuying] = useState(true);
+    const [selectedKursType, setSelectedType] = useState(currentUser.info.jenis_kurs.split(",")[0]);
+    const [state, setState] = useState<ChartState>({ series: [], options: {} });
 
-    const dates: string[] = [];
-    const buyValueUSD: number[] = [];
-    const buyValueCNY: number[] = [];
-    const buyValueSGD: number[] = [];
-    const buyValueEUR: number[] = [];
-    const buyValueGBP: number[] = [];
-    const buyValueJPY: number[] = [];
-    const buyValueSAR: number[] = [];
-    const sellValueUSD: number[] = [];
-    const sellValueCNY: number[] = [];
-    const sellValueSGD: number[] = [];
-    const sellValueEUR: number[] = [];
-    const sellValueGBP: number[] = [];
-    const sellValueJPY: number[] = [];
-    const sellValueSAR: number[] = [];
-
-    data.forEach((x: Data) => {
-        dates.push(x.date);
-        buyValueUSD.push(x.IDRExchangeRate.USD.buying);
-        buyValueCNY.push(x.IDRExchangeRate.CNY.buying);
-        buyValueSGD.push(x.IDRExchangeRate.SGD.buying);
-        buyValueEUR.push(x.IDRExchangeRate.EUR.buying);
-        buyValueGBP.push(x.IDRExchangeRate.GBP.buying);
-        buyValueJPY.push(x.IDRExchangeRate.JPY.buying);
-        buyValueSAR.push(x.IDRExchangeRate.SAR.buying);
-        sellValueUSD.push(x.IDRExchangeRate.USD.selling);
-        sellValueCNY.push(x.IDRExchangeRate.CNY.selling);
-        sellValueSGD.push(x.IDRExchangeRate.SGD.selling);
-        sellValueEUR.push(x.IDRExchangeRate.EUR.selling);
-        sellValueGBP.push(x.IDRExchangeRate.GBP.selling);
-        sellValueJPY.push(x.IDRExchangeRate.JPY.selling);
-        sellValueSAR.push(x.IDRExchangeRate.SAR.selling);
-    });
-
-    const labelStyle = {
-        style: {
-            colors: '#fff',
-            fontSize: '14px'
-        }
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedType(event.target.value);
     };
 
-    const [state, setState] = useState({
-        series: [
-            { name: "USD", data: isBuying ? buyValueUSD : sellValueUSD },
-            { name: "CNY", data: isBuying ? buyValueCNY : sellValueCNY },
-            { name: "SGD", data: isBuying ? buyValueSGD : sellValueSGD },
-            { name: "EUR", data: isBuying ? buyValueEUR : sellValueEUR },
-            { name: "GBP", data: isBuying ? buyValueGBP : sellValueGBP },
-            { name: "JPY", data: isBuying ? buyValueJPY : sellValueJPY },
-            { name: "SAR", data: isBuying ? buyValueSAR : sellValueSAR }
-        ],
-        options: {
-            chart: {
-                height: 350,
-                type: 'line' as const,
-                zoom: {
-                    enabled: false
-                },
-                toolbar: {
-                    tools: {
-                        download: false
-                    }
-                },
-                animations: {
-                    enabled: true,
-                    easing: 'easeinout' as const,
-                    speed: 800,
-                    animateGradually: {
-                        enabled: true,
-                        delay: 150
+    useEffect(() => {
+        const dates: string[] = [];
+        const buyValueUSD: number[] = [];
+        const buyValueCNY: number[] = [];
+        const buyValueSGD: number[] = [];
+        const buyValueEUR: number[] = [];
+        const buyValueGBP: number[] = [];
+        const buyValueJPY: number[] = [];
+        const buyValueSAR: number[] = [];
+        const sellValueUSD: number[] = [];
+        const sellValueCNY: number[] = [];
+        const sellValueSGD: number[] = [];
+        const sellValueEUR: number[] = [];
+        const sellValueGBP: number[] = [];
+        const sellValueJPY: number[] = [];
+        const sellValueSAR: number[] = [];
+
+        exchange.forEach((res) => {
+            if (res.bank.toLowerCase() === currentUser.title.toLowerCase() && res.type === selectedKursType.toLowerCase().trim()) {
+                dates.push(convertTimestampToDate(res.date));
+                buyValueUSD.push(res.IDRExchangeRate.USD.buy);
+                buyValueCNY.push(res.IDRExchangeRate.CNY.buy);
+                buyValueSGD.push(res.IDRExchangeRate.SGD.buy);
+                buyValueEUR.push(res.IDRExchangeRate.EUR.buy);
+                buyValueGBP.push(res.IDRExchangeRate.GBP.buy);
+                buyValueJPY.push(res.IDRExchangeRate.JPY.buy);
+                buyValueSAR.push(res.IDRExchangeRate.SAR.buy);
+                sellValueCNY.push(res.IDRExchangeRate.CNY.sell);
+                sellValueSGD.push(res.IDRExchangeRate.SGD.sell);
+                sellValueEUR.push(res.IDRExchangeRate.EUR.sell);
+                sellValueGBP.push(res.IDRExchangeRate.GBP.sell);
+                sellValueJPY.push(res.IDRExchangeRate.JPY.sell);
+                sellValueSAR.push(res.IDRExchangeRate.SAR.sell);
+                sellValueUSD.push(res.IDRExchangeRate.USD.sell);
+            }
+        });
+
+        const labelStyle = {
+            style: {
+                colors: "#fff",
+                fontSize: "14px",
+            },
+        };
+
+        setState({
+            series: [
+                { name: "USD", data: isBuying ? buyValueUSD : sellValueUSD },
+                { name: "CNY", data: isBuying ? buyValueCNY : sellValueCNY },
+                { name: "SGD", data: isBuying ? buyValueSGD : sellValueSGD },
+                { name: "EUR", data: isBuying ? buyValueEUR : sellValueEUR },
+                { name: "GBP", data: isBuying ? buyValueGBP : sellValueGBP },
+                { name: "JPY", data: isBuying ? buyValueJPY : sellValueJPY },
+                { name: "SAR", data: isBuying ? buyValueSAR : sellValueSAR },
+            ],
+            options: {
+                chart: {
+                    height: 350,
+                    type: "line" as const,
+                    zoom: {
+                        enabled: false,
                     },
-                    dynamicAnimation: {
+                    toolbar: {
+                        tools: {
+                            download: false,
+                        },
+                    },
+                    animations: {
                         enabled: true,
-                        speed: 350
-                    }
-                }
-            },
-            stroke: {
-                curve: 'straight' as const
-            },
-            title: {
-                text: 'BCA',
-                align: 'center' as const,
-                style: {
-                    color: '#fff',
-                    fontSize: '18px'
-                }
-            },
-            grid: {
-                borderColor: 'black' as const,
+                        easing: "easeinout" as const,
+                        speed: 800,
+                        animateGradually: {
+                            enabled: true,
+                            delay: 150,
+                        },
+                        dynamicAnimation: {
+                            enabled: true,
+                            speed: 350,
+                        },
+                    },
+                },
+                stroke: {
+                    curve: "straight" as const,
+                },
+                title: {
+                    text: currentUser.title,
+                    align: "center" as const,
+                    style: {
+                        color: "#fff",
+                        fontSize: "18px",
+                    },
+                },
+                grid: {
+                    borderColor: "black" as const,
+                    xaxis: {
+                        lines: {
+                            show: true,
+                        },
+                    },
+                },
                 xaxis: {
-                    lines: {
-                        show: true
-                    }
-                }
-            },
-            xaxis: {
-                categories: dates,
-                labels: labelStyle
-            },
-            yaxis: {
-                labels: {
-                    style: labelStyle.style,
-                    formatter: (val: number) => `Rp ${val.toLocaleString('id-ID')}`
-                }
-            },
-            legend: {
-                position: 'top' as const,
-                labels: {
-                    colors: '#fff'
+                    categories: dates,
+                    labels: labelStyle,
                 },
-                fontSize: '14px'
-            },
-            tooltip: {
-                shared: false,
-                followCursor: false,
-                theme: 'dark' as const,
-                y: {
-                    formatter: (val: number) => `Rp ${val.toLocaleString('id-ID')}`,
-                    title: {
-                        formatter: (seriesName: string) => seriesName,
-                    }
+                yaxis: {
+                    labels: {
+                        style: labelStyle.style,
+                        formatter: (val: number) => `Rp ${val.toLocaleString("id-ID")}`,
+                    },
                 },
-                style: {
-                    fontSize: '12px',
-                    color: '#000' // this will set the text color to black.
+                legend: {
+                    position: "top" as const,
+                    labels: {
+                        colors: "#fff",
+                    },
+                    fontSize: "14px",
                 },
-                background: {
-                    color: '#fff' // this will set the background color to white.
-                }
+                tooltip: {
+                    shared: false,
+                    followCursor: false,
+                    theme: "dark" as const,
+                    y: {
+                        formatter: (val: number) => `Rp ${val.toLocaleString("id-ID")}`,
+                        title: {
+                            formatter: (seriesName: string) => seriesName,
+                        },
+                    },
+                    style: {
+                        fontSize: "12px",
+                        color: "#000", // this will set the text color to black.
+                    },
+                    background: {
+                        color: "#fff", // this will set the background color to white.
+                    },
+                },
             },
-        }
-    });
+        });
+    }, [currentUser, isBuying, selectedKursType]);
 
     const toggleData = () => {
         setIsBuying(!isBuying);
-        setState(prevState => ({
-            ...prevState,
-            series: [
-                { name: "USD", data: isBuying ? sellValueUSD : buyValueUSD },
-                { name: "CNY", data: isBuying ? sellValueCNY : buyValueCNY },
-                { name: "SGD", data: isBuying ? sellValueSGD : buyValueSGD },
-                { name: "EUR", data: isBuying ? sellValueEUR : buyValueEUR },
-                { name: "GBP", data: isBuying ? sellValueGBP : buyValueGBP },
-                { name: "JPY", data: isBuying ? sellValueJPY : buyValueJPY }
-            ]
-        }));
     };
 
     return (
@@ -162,9 +169,9 @@ export default function Chart({info}:InfoChartProps) {
                 <button onClick={toggleData}>
                     {isBuying ? "Selling" : "Buying"} Rates
                 </button>
-                <select name="kurs-type" id="kurs-type">
-                    {info.jenis_kurs.split(",").map(type=>(
-                        <option value={type}>{type}</option>
+                <select name="kurs-type" id="kurs-type" onChange={handleSelectChange} value={selectedKursType}>
+                    {currentUser.info.jenis_kurs.split(",").map((type, index) => (
+                        <option value={type} key={index}>{type}</option>
                     ))}
                 </select>
             </span>
