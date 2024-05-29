@@ -2,10 +2,33 @@ import React, { ReactNode, createContext, useState } from "react";
 import { runChat } from "../config/gemini";
 
 interface Props {
-  children: ReactNode; // ReactNode is a type for any React node
+  children: ReactNode;
+}
+
+interface ExchangeRate {
+  buy: string;
+  sell: string;
+}
+
+interface CurrencyRates {
+  USD: ExchangeRate;
+  SGD: ExchangeRate;
+  EUR: ExchangeRate;
+  CNY: ExchangeRate;
+  GBP: ExchangeRate;
+  JPY: ExchangeRate;
+  SAR: ExchangeRate;
+}
+
+interface Payload {
+  type: string;
+  bank: string;
+  date: number;
+  IDRExchangeRate: CurrencyRates;
 }
 
 interface ContextType {
+  fetchPayload: () => Promise<void>;
   prevPrompts: string[];
   setPrevPrompts: React.Dispatch<React.SetStateAction<string[]>>;
   onSent: (prompt?: string, context?: string) => void;
@@ -26,9 +49,12 @@ interface ContextType {
   setTips: React.Dispatch<React.SetStateAction<string[]>>;
   carouseLoading: boolean;
   setCarouseloading: React.Dispatch<React.SetStateAction<boolean>>;
+  payload: Payload[] | null;
+  setPayload: React.Dispatch<React.SetStateAction<Payload[] | null>>;
 }
 
 export const Context = createContext<ContextType>({
+  fetchPayload: async () => {},
   prevPrompts: [],
   setPrevPrompts: () => {},
   onSent: () => {},
@@ -47,6 +73,8 @@ export const Context = createContext<ContextType>({
   setTips: () => {},
   carouseLoading: true,
   setCarouseloading: () => {},
+  payload: null,
+  setPayload: () => {},
 });
 
 const ContextProvider: React.FC<Props> = (props) => {
@@ -62,6 +90,7 @@ const ContextProvider: React.FC<Props> = (props) => {
   const [resultData, setResultData] = useState("");
   const [tips, setTips] = useState<string[]>([]);
   const [carouseLoading, setCarouseloading] = useState<boolean>(true);
+  const [payload, setPayload] = useState<Payload[] | null>(null);
 
   const delayPara = (index: number, nextWord: string) => {
     setTimeout(function () {
@@ -96,14 +125,6 @@ const ContextProvider: React.FC<Props> = (props) => {
     setLoading(true);
     setShowResult(true);
     let response = await runChat(prompt, context, chats);
-    // if (prompt !== undefined) {
-    //   response = await runChat(prompt, context, chats);
-    //   setRecentPrompt(prompt);
-    // } else {
-    //   setPrevPrompts((prev) => [...prev, input]);
-    //   setRecentPrompt(input);
-    //   response = await runChat(input, context, chats);
-    // }
 
     let responseArray = response.split("**");
     let newResponse = "";
@@ -131,7 +152,28 @@ const ContextProvider: React.FC<Props> = (props) => {
     setLoading(false);
   };
 
+  // fetch payload
+  const fetchPayload = async () => {
+    try {
+      const response = await fetch(
+        "http://exchange-rates-project.s3-website-ap-southeast-1.amazonaws.com/dev/scraping/exchange-rates.json"
+      );
+      let dataText = await response.text();
+      // the response is [] so we need to parse it
+      const data = JSON.parse(dataText);
+      // const data = await response.json();
+      console.log("Kursdollar data:", data);
+
+      const result: Payload[] = data;
+
+      setPayload(result);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+    }
+  };
+
   const contextValue: ContextType = {
+    fetchPayload,
     prevPrompts,
     setPrevPrompts,
     onSent,
@@ -150,6 +192,8 @@ const ContextProvider: React.FC<Props> = (props) => {
     setTips,
     carouseLoading,
     setCarouseloading,
+    payload,
+    setPayload,
   };
 
   return (
