@@ -49,6 +49,7 @@ function App() {
           <Route path="/users/:id" element={<User />} />
           <Route path="/products/:id" element={<Product />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/ask-ai" element={<Chat />} />
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>

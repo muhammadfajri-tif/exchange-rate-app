@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import "./Chat.css";
+import "./BankChat.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/Context";
 import Markdown from "react-markdown";
@@ -39,9 +39,17 @@ const detailCaseOptions: CaseOptions = {
   ],
 };
 
-const Chat = () => {
-  const { onSent, recentPrompt, showResult, loading, chats, isFirst } =
-    useContext(Context);
+const BankChat = () => {
+  const {
+    onSent,
+    recentPrompt,
+    showResult,
+    loading,
+    chats,
+    isFirst,
+    setInput,
+    input,
+  } = useContext(Context);
 
   // const location = useLocation();
   // const { exchange_rates } = location.state;
@@ -150,85 +158,31 @@ const Chat = () => {
         )}
 
         <div className="chat-bottom">
-          <div className="dropdown-row">
-            <select value={selectedRole} onChange={handleRoleChange}>
-              <option value="" disabled>
-                Select role
-              </option>
-              <option value="student">Student</option>
-              <option value="businessman">Businessman</option>
-              <option value="traveler">Traveler</option>
-            </select>
-
-            <select
-              value={selectedCase}
-              onChange={handleCaseChange}
-              disabled={!selectedRole}
-            >
-              <option value="" disabled>
-                Select case
-              </option>
-              {selectedRole &&
-                caseOptions[selectedRole].map((caseOption) => (
-                  <option key={caseOption} value={caseOption}>
-                    {caseOption}
-                  </option>
-                ))}
-            </select>
-          </div>
-          <div className="send-button">
-            <button
-              onClick={() => {
-                if (selectedRole && selectedCase) {
-                  const exchange_rates = {
-                    IDRExchangeRate: {
-                      USD: {
-                        buy: "15898.11",
-                        sell: "16057.89",
-                      },
-                      SGD: {
-                        buy: "11805.24",
-                        sell: "11928.31",
-                      },
-                      EUR: {
-                        buy: "17258.99",
-                        sell: "17438.87",
-                      },
-                      CNY: {
-                        buy: "2201.68",
-                        sell: "2224.02",
-                      },
-                      GBP: {
-                        buy: "20119.06",
-                        sell: "20327.68",
-                      },
-                      JPY: {
-                        buy: "102.02",
-                        sell: "103.05",
-                      },
-                      SAR: {
-                        buy: "4238.93",
-                        sell: "4281.76",
-                      },
-                    },
-                  };
-                  onSent(
-                    detailCaseOptions[selectedRole][
-                      caseOptions[selectedRole].indexOf(selectedCase)
-                    ],
-                    "fake",
-                    detailCaseOptions[selectedRole][
-                      caseOptions[selectedRole].indexOf(selectedCase)
-                    ],
-                    JSON.stringify(exchange_rates)
-                  );
+          <div className="search-box">
+            <input
+              onChange={(e) => setInput(e.target.value)}
+              value={input}
+              type="text"
+              placeholder="Enter a prompt here "
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  onSent(input, "");
                 }
               }}
-              disabled={!selectedRole || !selectedCase}
-            >
-              Ask Now
-            </button>
+            />
+            <div>
+              <img src={assets.gallery_icon} alt="" />
+              <img src={assets.mic_icon} alt="" />
+              {input ? (
+                <img
+                  onClick={() => onSent(input, "")}
+                  src={assets.send_icon}
+                  alt=""
+                />
+              ) : null}
+            </div>
           </div>
+
           <p className="bottom-info">
             The information provided by the AI is not guaranteed to be accurate.
           </p>
@@ -238,4 +192,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default BankChat;

@@ -11,7 +11,9 @@ const API_KEY = "AIzaSyA53I6jJG8ZpAbSqR55IBdimXEJ2I75QKg";
 async function runChat(
   prompt: string,
   context?: string,
-  history?: { role: string; parts: { text: string }[] }[]
+  history?: { role: string; parts: { text: string }[] }[],
+  role?: string,
+  contextRole?: string
 ): Promise<string> {
   const contextJson = {
     exchange_rates: {
@@ -62,8 +64,23 @@ async function runChat(
     "Sebagai seorang pedagang, saya memerlukan pemahaman mendalam mengenai nilai tukar mata uang ini untuk menginformasikan keputusan bisnis saya. Mohon berikan analisis tentang faktor-faktor yang mempengaruhi pergerakan nilai tukar ini, serta prediksi mengenai arah pergerakan masa depannya. Saya juga tertarik untuk mengetahui dampak potensial dari perubahan nilai tukar ini terhadap harga produk impor dan ekspor saya. Informasi ini sangat penting bagi saya dalam merencanakan strategi perdagangan saya. Jika saya bertanya di luar konteks yang saya berikan usahakan kamu menjawabnya sesuai dengan informasi di dunia nyata." +
     " berikut ini adalah data kursdollar bank mandiri: " +
     context;
-
-  prompt = firstHistory + " " + prompt;
+  if (role && contextRole) {
+    prompt =
+      "Ini adalah data kursdollar saat ini: " +
+      contextRole +
+      " " +
+      role +
+      " tolong jelaskan dalam bentuk yang mudah dimengerti oleh orang awam yang tidak mengerti tentang kursdollar dan bahasa indonesia yang mudah dimengerti";
+  } else {
+    // prompt = firstHistory + " " + prompt;
+    prompt =
+      "Ini adalah kursdollar saat ini: " +
+      JSON.stringify(contextJson) +
+      " " +
+      prompt +
+      " tolong jelaskan dalam bentuk yang mudah dimengerti oleh orang awam yang tidak mengerti tentang kursdollar dan bahasa indonesia yang mudah dimengerti";
+  }
+  console.log("prompt in runChat", prompt);
 
   const genAI = new GoogleGenerativeAI(API_KEY);
   const model = genAI.getGenerativeModel({ model: MODEL_NAME });
@@ -168,7 +185,7 @@ async function getResponse(prompt: string) {
   const response = result.response;
   const text = response.text();
   // remove ** from the response
-  text.replace("**", "");
+  // text.replace("**", "");
   console.log(text);
   return text;
 }
