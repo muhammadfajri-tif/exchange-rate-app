@@ -2,26 +2,9 @@ import { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import data from "../../data/data.json";
 import "./apexChart.scss";
+import { Data, InfoChartProps } from "../../types/types";
 
-interface ExchangeRate {
-    buying: number;
-    selling: number;
-}
-
-interface Data {
-    date: string;
-    IDRExchangeRate: {
-        USD: ExchangeRate;
-        CNY: ExchangeRate;
-        SGD: ExchangeRate;
-        EUR: ExchangeRate;
-        GBP: ExchangeRate;
-        JPY: ExchangeRate;
-        SAR: ExchangeRate;
-    };
-}
-
-export default function Chart() {
+export default function Chart({info}:InfoChartProps) {
     const [isBuying, setIsBuying] = useState(true);
 
     const dates: string[] = [];
@@ -85,6 +68,19 @@ export default function Chart() {
                 toolbar: {
                     tools: {
                         download: false
+                    }
+                },
+                animations: {
+                    enabled: true,
+                    easing: 'easeinout' as const,
+                    speed: 800,
+                    animateGradually: {
+                        enabled: true,
+                        delay: 150
+                    },
+                    dynamicAnimation: {
+                        enabled: true,
+                        speed: 350
                     }
                 }
             },
@@ -167,9 +163,9 @@ export default function Chart() {
                     {isBuying ? "Selling" : "Buying"} Rates
                 </button>
                 <select name="kurs-type" id="kurs-type">
-                    <option value="Bank Notes">Bank Notes</option>
-                    <option value="DD/TT">DD/TT</option>
-                    <option value="E-rate">E-rate</option>
+                    {info.jenis_kurs.split(",").map(type=>(
+                        <option value={type}>{type}</option>
+                    ))}
                 </select>
             </span>
             <ReactApexChart options={state.options} series={state.series} type="line" height={400} />

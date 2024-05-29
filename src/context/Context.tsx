@@ -31,7 +31,12 @@ interface ContextType {
   fetchPayload: () => Promise<void>;
   prevPrompts: string[];
   setPrevPrompts: React.Dispatch<React.SetStateAction<string[]>>;
-  onSent: (prompt?: string, context?: string) => void;
+  onSent: (
+    prompt?: string,
+    context?: string,
+    role?: string,
+    contextRole?: string
+  ) => void;
   setRecentPrompt: React.Dispatch<React.SetStateAction<string>>;
   recentPrompt: string;
   showResult: boolean;
@@ -103,7 +108,12 @@ const ContextProvider: React.FC<Props> = (props) => {
     setShowResult(false);
   };
 
-  const onSent = async (prompt?: string, context?: string) => {
+  const onSent = async (
+    prompt?: string,
+    context?: string,
+    role?: string,
+    contextRole?: string
+  ) => {
     console.log("prompt", prompt);
     console.log("context", context);
 
@@ -124,9 +134,25 @@ const ContextProvider: React.FC<Props> = (props) => {
     setResultData("");
     setLoading(true);
     setShowResult(true);
-    let response = await runChat(prompt, context, chats);
+    // let response = await runChat(prompt, context, chats); // dri feat/api
+    let response = "";
 
-    let responseArray = response.split("**");
+    if (role && contextRole) {
+      response = await runChat(prompt, context, chats, role, contextRole);
+    } else {
+      response = await runChat(prompt, context, chats);
+    }
+    // if (prompt !== undefined) {
+    //   response = await runChat(prompt, context, chats);
+    //   setRecentPrompt(prompt);
+    // } else {
+    //   setPrevPrompts((prev) => [...prev, input]);
+    //   setRecentPrompt(input);
+    //   response = await runChat(input, context, chats);
+    // }
+
+    // let responseArray = response.split("**");
+    let responseArray = response;
     let newResponse = "";
     for (let i = 0; i < responseArray.length; i++) {
       if (i === 0 || i % 2 !== 1) {

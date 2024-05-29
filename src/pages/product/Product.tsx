@@ -1,4 +1,4 @@
-import Single from "../../components/single/Single"
+import Single from "../../components/bankProfile/BcaProfile"
 import { singleProduct } from "../../data"
 import "./product.scss"
 

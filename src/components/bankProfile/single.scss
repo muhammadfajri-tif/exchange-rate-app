@@ -3,7 +3,7 @@
 .single {
   display: flex;
 
-  @include xl{
+  @include xl {
     flex-direction: column;
     gap: 50px;
   }
@@ -13,18 +13,16 @@
 
     .info {
       .topInfo {
-        display: flex;
+        padding: 0.5rem;
+        display: inline-block;
         align-items: center;
-        gap: 20px;  
+        gap: 20px;
+        background-color: aliceblue;
 
         img {
           width: 200px;
-          border-radius: 20px;
+          // border-radius: 20px;
           // object-fit: cover;
-        }
-
-        h1 {
-          font-weight: 500;
         }
       }
       .details {
@@ -48,7 +46,7 @@
       border: 0.5px solid gray;
       margin: 20px 0px;
 
-      @include md{
+      @include md {
         display: none;
       }
     }
@@ -58,7 +56,7 @@
       width: 80%;
       height: 400px;
 
-      @include md{
+      @include md {
         display: none;
       }
     }
@@ -95,19 +93,96 @@
           padding: 15px;
           background-color: #f45b6810;
 
-          @include md{
+          @include md {
             min-width: 250px;
           }
 
-          p{
+          p {
             margin-bottom: 5px;
           }
 
-          time{
+          time {
             font-size: 12px;
           }
         }
       }
     }
+  }
+}
+
+.two-section {
+  // make it left and right section
+  display: flex;
+  gap: 50px;
+
+  @include xl {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .left {
+    flex: 1;
+    .info {
+      .topInfo {
+        padding: 0.5rem;
+        display: inline-block;
+        align-items: center;
+        gap: 20px;
+        background-color: aliceblue;
+
+        img {
+          width: 200px;
+          // border-radius: 20px;
+          // object-fit: cover;
+        }
+      }
+      .details {
+        font-size: 18px;
+
+        .item {
+          margin: 30px 0px;
+
+          .itemTitle {
+            font-weight: 600;
+            margin-right: 10px;
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+
+    hr {
+      width: 90%;
+      height: 0;
+      border: 0.5px solid gray;
+      margin: 20px 0px;
+
+      @include md {
+        display: none;
+      }
+    }
+
+    .chart {
+      margin-top: 50px;
+      width: 80%;
+      height: 400px;
+
+      @include md {
+        display: none;
+      }
+    }
+
+    .bank-menu {
+      margin-top: 50px;
+      // make it as row but if it is not fit then make it column
+      display: flex;
+      flex-wrap: wrap;
+      // right of item
+      gap: 40px;
+    }
+  }
+
+  .right {
+    flex: 1;
   }
 }

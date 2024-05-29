@@ -1,16 +1,40 @@
-import Single from "../../components/single/Single"
-import { singleUser } from "../../data"
-import "./user.scss"
+import { singleUser } from "../../data";
+import "./user.scss";
+import { useParams } from 'react-router-dom';
+import BankProfile from "../../components/bankProfile/BankProfile";
 
 const User = () => {
-
-  //Fetch data and send to Single Component
-  
+  const { id } = useParams();
+  // Fetch data and send to Single Component
   return (
     <div className="user">
-      <Single {...singleUser}/>
+      {id === "BCA" ? (
+        <BankProfile users={singleUser} bankId={1}/>
+      ) : id === "BNI" ? (
+        <BankProfile users={singleUser} bankId={2}/>
+      ) : id === "BI" ? (
+        <BankProfile users={singleUser} bankId={3}/>
+      ) : id === "Mandiri" ? (
+        <BankProfile users={singleUser} bankId={4}/>
+      ) : id === "HSBC" ? (
+        <BankProfile users={singleUser} bankId={5}/>
+      ) : id === "Panin" ? (
+        <BankProfile users={singleUser} bankId={6}/>
+      ) : id === "Permata" ? (
+        <BankProfile users={singleUser} bankId={7}/>
+      ) : id === "OCBC" ? (
+        <BankProfile users={singleUser} bankId={8}/>
+      ) : id === "CIMB" ? (
+        <BankProfile users={singleUser} bankId={9}/>
+      ) : id === "BRI" ? (
+        <BankProfile users={singleUser} bankId={10}/>
+      ) : (
+        <div>
+          <h1>User ID: {id}</h1>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default User
+export default User;
