@@ -48,6 +48,8 @@ const Carousel: React.FC = () => {
           JSON.stringify(contextJson) +
           " tolong berikan tips-tips insight dari kursdollar bank mandiri";
 
+        console.log("ini adalah prompt yang dikirim ke gemini: ", prompt);
+
         const response = await getResponse(prompt);
         const data = JSON.parse(response);
         const cleanedTips = data.tips.map((tip: string) =>

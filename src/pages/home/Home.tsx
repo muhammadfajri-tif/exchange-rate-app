@@ -42,41 +42,34 @@ const Home = () => {
       <div className="box box1">
         <TopBox />
       </div>
-<!-- <<<<<<< dev/yahya -->
-      {/* <div className="App">
-        <h1>Custom Dropdown Select Menu</h1>
-        <CustomDropdown />
-      </div> */}
       <div className="box box2">
         <ChartBox {...chartBoxUser} />
       </div>
       <div className="box box3">
         <ChartBox {...chartBoxProduct} />
-<!-- ======= -->
-      <div className="home_chart">
-        <div className="box box7">
-          <BigChartBox />
+        <div className="home_chart">
+          <div className="box box7">
+            <BigChartBox />
+          </div>
+          <div className="box box7">
+            <BigChartBox />
+          </div>
+          <div className="box box7">
+            <BigChartBox />
+          </div>
+          <div className="box box7">
+            <BigChartBox />
+          </div>
         </div>
-        <div className="box box7">
-          <BigChartBox />
+        <div className="box box4">
+          <PieChartBox />
         </div>
-        <div className="box box7">
-          <BigChartBox />
-        </div>
-        <div className="box box7">
-          <BigChartBox />
-        </div>
-<!-- >>>>>>> main -->
-      </div>
-      <div className="box box4">
-        <PieChartBox />
-      </div>
-      <div className="App">
-        <h1>Custom Dropdown Select Menu</h1>
-        <CustomDropdown />
+        {/* <div className="App">
+          <h1>Custom Dropdown Select Menu</h1>
+          <CustomDropdown />
+        </div> */}
       </div>
     </div>
   );
 };
-
 export default Home;
