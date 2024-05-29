@@ -4,38 +4,51 @@ import { assets } from "../../assets/assets";
 import { Context } from "../../context/Context";
 import Markdown from "react-markdown";
 
-type Role = "student" | "businessman" | "traveler";
+type Role = "investor" | "company" | "consumer" | "bank and financial institution" | "government" ;
 
 interface CaseOptions {
   [key: string]: string[];
 }
 
 const caseOptions: CaseOptions = {
-  student: ["Study Abroad", "Scholarships", "Part-time Work"],
-  businessman: [
-    "International Trade",
-    "Market Analysis",
-    "Business Strategies",
-  ],
-  traveler: ["Currency Exchange", "Travel Budgeting", "International Shopping"],
+  investor: ["Foreign Currency Investment", "Portofolio Diversification", "Currency Trend Prediction", "Investment Risk Management"],
+  company: ["International Transactions","Fund Management","Foreign Exchange Hedging","Production Cost Analysis"],
+  consumer: ["Purchasing Imported Goods", "Traveling Abroad", "Savings in Foreign Currency","Repaying Foreign Debt",],
+  bank_and_financial: ["Foreign Exchange Products","Reserve Mangement","Credit Risk Analysis","Bank Investment Strategy",],
+  government: ["Monetary Policy","Fiscal Policy","International Trade","Economic Stability",],
 };
 
 const detailCaseOptions: CaseOptions = {
-  student: [
-    "As a student, I need to understand the exchange rates to inform my decision on studying abroad. Please provide an analysis of the factors affecting these exchange rates, as well as predictions on their future movements. I am also interested in the potential impact of these exchange rate changes on my tuition fees and living expenses. This information is crucial for me in planning my study abroad experience. Thank you.",
-    "As a student, I am looking into taking online courses from foreign institutions. Can you explain how exchange rates influence the cost of these courses? Additionally, what are the potential financial risks and benefits associated with fluctuating exchange rates over the course duration?",
-    "As a student seeking an international internship, I need to understand how exchange rates will affect my stipend and expenses in a foreign country. Could you provide insights into how exchange rate fluctuations might impact my overall budget and financial planning during my internship?",
+  investor: [
+    "As an investor, I am interested in understanding the potential returns from investing in foreign currencies. Please provide an analysis of the current exchange rates, factors influencing these rates, and predictions for their future movements. Additionally, explain the risks involved and how I can maximize my returns. This information is essential for my investment strategy. Thank you.",
+    "As an investor looking to diversify my portfolio with foreign currencies, I need detailed information on which currencies are currently strong and stable. Please provide insights into the current exchange rates, factors affecting them, and future predictions. How can I effectively diversify my portfolio to minimize risk and optimize returns? Thank you.",
+    "As an investor, I require a detailed prediction of currency trends over the next few months. Please analyze the current exchange rates, factors driving these rates, and their likely future movements. How can these trends impact my investment decisions? Your analysis will help me in planning my investments. Thank you.",
+    "As an investor, managing risk in foreign currency investments is crucial. Please provide a detailed analysis of current exchange rates, the factors causing their fluctuations, and strategies to manage these risks. How can I protect my investments from adverse currency movements? This information is vital for my risk management strategy. Thank you.",
   ],
 
-  businessman: [
-    "As a businessman, I need to develop effective business strategies considering exchange rate fluctuations. Please provide an analysis of the current exchange rates and their potential impact on international trade, pricing strategies, and competitive positioning. How can I hedge against adverse currency movements?",
-    "As a businessman involved in import/export activities, understanding exchange rates is crucial for pricing and cost management. Can you explain how exchange rates affect the cost of goods sold and profit margins? What strategies can I employ to mitigate the risks associated with exchange rate volatility?",
-    "As a businessman looking to invest in foreign markets, I need to consider exchange rates in my investment decisions. Please provide an analysis of how currency fluctuations can impact the returns on foreign investments. What are the best practices for managing exchange rate risk in international investments?",
+  company: [
+    "As a company involved in numerous international transactions, we need to understand how current and future exchange rates will impact our transaction costs. Please provide an analysis of current exchange rates, factors influencing these rates, and their predicted movements. This information is crucial for managing our international finances. Thank you.",
+    "As a company managing funds in multiple currencies, we require detailed insights on the best strategies for managing these funds given current and predicted exchange rates. Please analyze the factors affecting exchange rates and suggest effective fund management strategies. This will help optimize our financial operations. Thank you.",
+    "As a company looking to hedge against foreign exchange risks, we need an analysis of current exchange rates, factors influencing these rates, and effective hedging strategies. How can we protect our business from adverse currency fluctuations? This information is essential for our risk management. Thank you.",
+    "As a company analyzing production costs, we need to understand how changes in exchange rates can impact these costs. Please provide a detailed analysis of current and future exchange rates, factors driving these rates, and their impact on our production expenses. This information is crucial for our cost management strategy. Thank you.",
   ],
-  traveler: [
-    "As a traveler planning a vacation abroad, I need to understand how exchange rates will affect my travel budget. Can you provide insights into the current exchange rates and their potential impact on accommodation, dining, and entertainment expenses? What are the best practices for exchanging currency to get the best rates?",
-    "As a traveler planning a long-term trip, I need to manage my finances carefully considering exchange rates. Could you explain how exchange rate fluctuations might impact my overall travel costs, including accommodation, food, and transportation? What strategies can I use to minimize the financial impact of unfavorable exchange rate changes?",
-    "As a traveler visiting multiple countries, I need to navigate different exchange rates. How can I effectively manage my finances across various currencies? Please provide advice on how to track and optimize currency exchange while traveling through several countries?",
+  consumer: [
+    "As a consumer looking to purchase imported goods, I need to understand how current exchange rates affect prices. Please provide an analysis of the current exchange rates, factors influencing these rates, and predictions for future movements. How will these changes impact the cost of imported products? This information is important for my purchasing decisions. Thank you.",
+    "As a consumer planning to travel abroad, I need to know the best time to exchange currency. Please provide an analysis of the current exchange rates, factors influencing these rates, and future predictions. How will these rates affect my travel expenses? This information is essential for planning my trip. Thank you.",
+    "As a consumer considering saving in foreign currency, I need detailed information on the stability and strength of various currencies. Please provide an analysis of current exchange rates, factors affecting these rates, and future predictions. How can I optimize my savings in foreign currencies? This information is crucial for my savings strategy. Thank you.",
+    "As a consumer with foreign debt, I need to understand how exchange rate fluctuations will affect my repayment amounts. Please provide an analysis of current exchange rates, factors driving these rates, and their future predictions. How can I manage my debt repayment effectively? This information is vital for my financial planning. Thank you.",
+  ],
+  bank_and_financial: [
+    "As a bank looking to offer foreign exchange products, we need an analysis of current exchange rates, factors influencing these rates, and predictions for future movements. What products can we offer to our clients based on this information? This is essential for developing our product offerings. Thank you.",
+    "As a financial institution managing reserves in multiple currencies, we need detailed insights into the best strategies for reserve management given current and predicted exchange rates. Please analyze the factors affecting exchange rates and suggest effective management strategies. This will help optimize our reserve management. Thank you.",
+    "As a bank, understanding how exchange rate fluctuations impact credit risk is crucial. Please provide a detailed analysis of current exchange rates, the factors causing their fluctuations, and how these changes affect credit risk. This information is vital for our risk assessment processes. Thank you.",
+    "As a financial institution, we need to develop an effective investment strategy based on current and predicted exchange rates. Please provide an analysis of these rates, factors influencing them, and their future movements. How can we optimize our investments in foreign currencies? This information is crucial for our investment planning. Thank you.",
+  ],
+  government: [
+    "As a government official, I need to understand how current exchange rate fluctuations affect our monetary policy. Please provide an analysis of the current exchange rates, factors driving these rates, and their predicted movements. How should we adjust our monetary policy in response to these changes? This information is crucial for policy formulation. Thank you.",
+    "As a government official, understanding the impact of exchange rate changes on our fiscal policy is essential. Please provide an analysis of current exchange rates, factors influencing these rates, and their future predictions. How can we adapt our fiscal policy to these changes? This information is vital for our financial planning. Thank you.",
+    "As a government official, I need to understand how exchange rate fluctuations affect our international trade. Please provide an analysis of current exchange rates, factors driving these rates, and their future predictions. How will these changes impact our trade balance? This information is important for trade policy development. Thank you.",
+    "As a government official, maintaining economic stability amidst exchange rate fluctuations is crucial. Please provide an analysis of current exchange rates, factors influencing these rates, and future predictions. What measures can we take to ensure economic stability in light of these changes? This information is essential for our economic policy. Thank you.",
   ],
 };
 
@@ -155,9 +168,11 @@ const Chat = () => {
               <option value="" disabled>
                 Select role
               </option>
-              <option value="student">Student</option>
-              <option value="businessman">Businessman</option>
-              <option value="traveler">Traveler</option>
+              <option value="investor">Investor</option>
+              <option value="company">Company</option>
+              <option value="consumer">Consumer</option>
+              <option value="bank_and_financial">Bank and Financial Instition</option>
+              <option value="government">Government</option>
             </select>
 
             <select
