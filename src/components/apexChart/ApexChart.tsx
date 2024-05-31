@@ -137,6 +137,9 @@ export default function Chart({ currentUser }: InfoChartProps) {
                         colors: "#fff",
                     },
                     fontSize: "14px",
+                    onItemHover: {
+                        toggleDataSeries: true
+                    }
                 },
                 tooltip: {
                     shared: false,

@@ -576,7 +576,7 @@ export const singleUser = [
     title: "BCA",
     img: "//upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bank_Central_Asia.svg/799px-Bank_Central_Asia.svg.png",
     info: {
-      jenis_kurs: "Bank Notes, DD/TT, E-rate",
+      jenis_kurs: "Bank Notes, DD/TT, e-Rates",
       Tahun: "2024"
     },
   },
@@ -620,7 +620,7 @@ export const singleUser = [
     title: "Panin",
     img: "//upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Logo_Panin_Bank.svg/800px-Logo_Panin_Bank.svg.png",
     info: {
-      jenis_kurs: "Bank Notes, DD/TT, e-Rate",
+      jenis_kurs: "Bank Notes, DD/TT, e-Rates",
       Tahun: "2024"
     },
   },{
@@ -652,7 +652,7 @@ export const singleUser = [
     title: "BRI",
     img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/BANK_BRI_logo.svg/640px-BANK_BRI_logo.svg.png",
     info: {
-      jenis_kurs: "Bank Notes, DD/TT, e-Rate",
+      jenis_kurs: "Bank Notes, DD/TT, e-Rates",
       Tahun: "2024"
     },
   }
