@@ -1,12 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ReactApexChart from "react-apexcharts";
 import "./apexChart.scss";
 import { InfoChartProps, ChartState } from "../../types/types";
-import exchange from "../../data/exchange-rates.json";
+// import exchange from "../../data/exchange-rates.json";
+import { Context } from "../../context/Context";
+
+
+
 
 const convertTimestampToDate = (timestamp: number): string => {
     const months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
-    const date = new Date(timestamp * 1000);
+    const date = new Date(timestamp);
     const day = date.getDate();
     const month = months[date.getMonth()];
     return `${day}-${month}`;
@@ -16,12 +20,15 @@ export default function Chart({ currentUser }: InfoChartProps) {
     const [isBuying, setIsBuying] = useState(true);
     const [selectedKursType, setSelectedType] = useState(currentUser.info.jenis_kurs.split(",")[0]);
     const [state, setState] = useState<ChartState>({ series: [], options: {} });
+    const {payload} = useContext(Context);
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedType(event.target.value);
     };
 
     useEffect(() => {
+        if(!payload)return;
+
         const dates: string[] = [];
         const buyValueUSD: number[] = [];
         const buyValueCNY: number[] = [];
@@ -38,23 +45,23 @@ export default function Chart({ currentUser }: InfoChartProps) {
         const sellValueJPY: number[] = [];
         const sellValueSAR: number[] = [];
 
-        exchange.slice().reverse().forEach((res) => {
+        payload.slice().reverse().forEach((res) => {
             if (res.bank.toLowerCase() === currentUser.title.toLowerCase() && res.type === selectedKursType.toLowerCase().trim()) {
                 dates.push(convertTimestampToDate(res.date));
-                buyValueUSD.push(res.IDRExchangeRate.USD.buy);
-                buyValueCNY.push(res.IDRExchangeRate.CNY.buy);
-                buyValueSGD.push(res.IDRExchangeRate.SGD.buy);
-                buyValueEUR.push(res.IDRExchangeRate.EUR.buy);
-                buyValueGBP.push(res.IDRExchangeRate.GBP.buy);
-                buyValueJPY.push(res.IDRExchangeRate.JPY.buy);
-                buyValueSAR.push(res.IDRExchangeRate.SAR.buy);
-                sellValueCNY.push(res.IDRExchangeRate.CNY.sell);
-                sellValueSGD.push(res.IDRExchangeRate.SGD.sell);
-                sellValueEUR.push(res.IDRExchangeRate.EUR.sell);
-                sellValueGBP.push(res.IDRExchangeRate.GBP.sell);
-                sellValueJPY.push(res.IDRExchangeRate.JPY.sell);
-                sellValueSAR.push(res.IDRExchangeRate.SAR.sell);
-                sellValueUSD.push(res.IDRExchangeRate.USD.sell);
+                buyValueUSD.push(Number(res.IDRExchangeRate.USD.buy));
+                buyValueCNY.push(Number(res.IDRExchangeRate.CNY.buy));
+                buyValueSGD.push(Number(res.IDRExchangeRate.SGD.buy));
+                buyValueEUR.push(Number(res.IDRExchangeRate.EUR.buy));
+                buyValueGBP.push(Number(res.IDRExchangeRate.GBP.buy));
+                buyValueJPY.push(Number(res.IDRExchangeRate.JPY.buy));
+                buyValueSAR.push(Number(res.IDRExchangeRate.SAR.buy));
+                sellValueCNY.push(Number(res.IDRExchangeRate.CNY.sell));
+                sellValueSGD.push(Number(res.IDRExchangeRate.SGD.sell));
+                sellValueEUR.push(Number(res.IDRExchangeRate.EUR.sell));
+                sellValueGBP.push(Number(res.IDRExchangeRate.GBP.sell));
+                sellValueJPY.push(Number(res.IDRExchangeRate.JPY.sell));
+                sellValueSAR.push(Number(res.IDRExchangeRate.SAR.sell));
+                sellValueUSD.push(Number(res.IDRExchangeRate.USD.sell));
             }
         });
 
@@ -161,7 +168,7 @@ export default function Chart({ currentUser }: InfoChartProps) {
                 },
             },
         });
-    }, [currentUser, isBuying, selectedKursType]);
+    }, [currentUser, isBuying, , payload]);
 
     const toggleData = () => {
         setIsBuying(!isBuying);
