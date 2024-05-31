@@ -12,46 +12,72 @@ const Carousel: React.FC = () => {
     setTips,
     carouseLoading: loading,
     setCarouseloading: setLoading,
+    payload,
   } = useContext(Context);
+  const [retryCount, setRetryCount] = useState(0);
+  const maxRetries = 5;
 
   useEffect(() => {
+    let index = 0;
     const fetchData = async () => {
       try {
-        const contextJson = {
-          exchange_rates: {
-            USD: {
-              SGD: { buying: 15.97373, selling: 16.13427 },
-              AUD: { buying: 10.54106, selling: 10.65346 },
-              EUR: { buying: 17.18933, selling: 17.36854 },
-              JPY: { buying: 0.14429, selling: 0.14571 },
-              GBP: { buying: 21.975, selling: 22.175 },
-              CNY: { buying: 2.456, selling: 2.476 },
+        console.log("is payload available?", payload !== null);
+
+        let contextJson;
+        if (payload) {
+          contextJson = payload;
+        } else {
+          contextJson = {
+            exchange_rates: {
+              USD: {
+                SGD: { buying: 15.97373, selling: 16.13427 },
+                AUD: { buying: 10.54106, selling: 10.65346 },
+                EUR: { buying: 17.18933, selling: 17.36854 },
+                JPY: { buying: 0.14429, selling: 0.14571 },
+                GBP: { buying: 21.975, selling: 22.175 },
+                CNY: { buying: 2.456, selling: 2.476 },
+              },
             },
-          },
-        };
+          };
+        }
+
+        console.log("contextJson", contextJson);
 
         const prompt =
           "ini adalah kursdollar bank mandiri: " +
           JSON.stringify(contextJson) +
           " tolong berikan tips-tips insight dari kursdollar bank mandiri";
 
+        console.log("ini adalah prompt yang dikirim ke gemini: ", prompt);
+
         const response = await getResponse(prompt);
         const data = JSON.parse(response);
         const cleanedTips = data.tips.map((tip: string) =>
           tip.replace(/\*\*/g, "")
-        ); // Remove ** from tips
+        );
         setTips(cleanedTips);
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);
+        setRetryCount(0); // Reset retry count on success
       } catch (error) {
         console.error("Failed to fetch data:", error);
-        await fetchData(); // Retry fetching data if failed
+        console.log("retrying...", index);
+
+        index++;
+
+        if (loading && retryCount < maxRetries) {
+          setRetryCount((prevRetryCount) => prevRetryCount + 1);
+        } else {
+          setLoading(false);
+        }
       }
     };
 
-    if (tips.length > 0) return; // Fetch data only if tips is empty (on first render
+    console.log("tips: ", tips.length);
 
-    fetchData();
-  }, []);
+    if (tips.length === 0 && retryCount < maxRetries) {
+      fetchData();
+    }
+  }, [payload, loading, tips, retryCount]);
 
   const settings = {
     dots: true,

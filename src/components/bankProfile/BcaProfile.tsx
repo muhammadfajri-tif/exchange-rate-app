@@ -18,7 +18,7 @@ type InfoType = {
 
 type Props = {
   id: number;
-  img?: string; 
+  img?: string;
   title: string;
   info: InfoType;
 };
@@ -33,24 +33,34 @@ const Single = ({ users }: PropsArray) => {
       <div className="view">
         <div className="info">
           <div className="topInfo">
-            {users.map(user => (
-              user.id === 1 && <img key={user.id} src={user.img} alt="Image" />
-            ))}
+            {users.map(
+              (user) =>
+                user.id === 1 && (
+                  <img key={user.id} src={user.img} alt="Image" />
+                )
+            )}
           </div>
           <div className="details">
-            {users.map(user => (
-              user.id === 1 &&
-              Object.entries(user.info).map((item, index) => (
-                <div className="item" key={index}>
-                  <span className="itemTitle">{String(item[0]).split("_").join(" ")}</span>
-                  <span className="itemValue">{item[1]}</span>
-                </div>
-              ))
-            ))}
+            {users.map(
+              (user) =>
+                user.id === 1 &&
+                Object.entries(user.info).map((item, index) => (
+                  <div className="item" key={index}>
+                    <span className="itemTitle">
+                      {String(item[0]).split("_").join(" ")}
+                    </span>
+                    <span className="itemValue">{item[1]}</span>
+                  </div>
+                ))
+            )}
           </div>
         </div>
         <hr />
-        <ApexCharts />
+        <ApexCharts
+          info={{
+            jenis_kurs: "",
+          }}
+        />
         <BankMenu />
       </div>
     </div>
