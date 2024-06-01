@@ -5,9 +5,6 @@ import { InfoChartProps, ChartState } from "../../types/types";
 // import exchange from "../../data/exchange-rates.json";
 import { Context } from "../../context/Context";
 
-
-
-
 const convertTimestampToDate = (timestamp: number): string => {
     const months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
     const date = new Date(timestamp);
