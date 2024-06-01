@@ -188,7 +188,6 @@ const ContextProvider: React.FC<Props> = (props) => {
       // the response is [] so we need to parse it
       const data = JSON.parse(dataText);
       // const data = await response.json();
-      console.log("Kursdollar data:", data);
 
       const result: Payload[] = data;
 

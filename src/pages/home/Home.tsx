@@ -1,21 +1,18 @@
-import BarChartBox from "../../components/barChartBox/BarChartBox";
+import { useContext, useEffect } from "react";
 import BigChartBox from "../../components/bigChartBox/BigChartBox";
 import Carousel from "../../components/carousel/Carousel";
-import ChartBox from "../../components/chartBox/ChartBox";
 import PieChartBox from "../../components/pieCartBox/PieChartBox";
 import TopBox from "../../components/topBox/TopBox";
-import {
-  barChartBoxRevenue,
-  barChartBoxVisit,
-  chartBoxConversion,
-  chartBoxProduct,
-  chartBoxRevenue,
-  chartBoxUser,
-} from "../../data";
 import CustomDropdown from "./CustomDropdown";
 import "./home.scss";
+import { Context } from "../../context/Context";
 
 const Home = () => {
+  const { fetchPayload } = useContext(Context);
+  useEffect(() => {
+    fetchPayload();
+  }, [fetchPayload]);
+
   return (
     <div className="home">
       <div className="box box8">
