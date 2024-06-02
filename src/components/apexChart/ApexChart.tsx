@@ -127,7 +127,7 @@ export default function Chart({ currentUser }: InfoChartProps) {
                         style: labelStyle.style,
                         rotate: 0
                     },
-                    tickAmount: Math.floor(dates.length / 10),
+                    tickAmount: 5,
                 },
                 yaxis: {
                     labels: {
