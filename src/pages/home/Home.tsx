@@ -1,9 +1,10 @@
 import { useContext, useEffect } from "react";
-import BigChartBox from "../../components/bigChartBox/BigChartBox";
+// import BigChartBox from "../../components/bigChartBox/BigChartBox";
 import Carousel from "../../components/carousel/Carousel";
-import PieChartBox from "../../components/pieCartBox/PieChartBox";
-import TopBox from "../../components/topBox/TopBox";
+// import PieChartBox from "../../components/pieCartBox/PieChartBox";
+// import TopBox from "../../components/topBox/TopBox";
 import CustomDropdown from "./CustomDropdown";
+import BarChart from "../../components/barChart/barChart";
 import "./home.scss";
 import { Context } from "../../context/Context";
 
@@ -18,26 +19,26 @@ const Home = () => {
       <div className="box box8">
         <Carousel />
       </div>
-      <div className="box box1">
+      {/* <div className="box box1">
         <TopBox />
-      </div>
+      </div> */}
       <div className="home_chart">
         <div className="box box7">
-          <BigChartBox />
+          <BarChart />
         </div>
         <div className="box box7">
-          <BigChartBox />
+          <BarChart />
         </div>
         <div className="box box7">
-          <BigChartBox />
+          <BarChart />
         </div>
         <div className="box box7">
-          <BigChartBox />
+          <BarChart />
         </div>
       </div>
-      <div className="box box4">
+      {/* <div className="box box4">
         <PieChartBox />
-      </div>
+      </div> */}
       <div className="App">
         <h1>Custom Dropdown Select Menu</h1>
         <CustomDropdown />
