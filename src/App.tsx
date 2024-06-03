@@ -8,7 +8,6 @@ import Chat from "./components/chat/Chat";
 import Login from "./pages/login/Login";
 import "./styles/global.scss";
 import User from "./pages/user/User";
-import Product from "./pages/product/Product";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   BrowserRouter as Router,
@@ -47,7 +46,6 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/products" element={<Products />} />
           <Route path="/users/:id" element={<User />} />
-          <Route path="/products/:id" element={<Product />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/ask-ai" element={<Chat />} />
         </Route>

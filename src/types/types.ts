@@ -19,34 +19,21 @@ export interface InfoChartProps {
     currentUser: UserProps;
 }
 
-// export interface ExchangeRate {
-//     buy: number;
-//     sell: number;
-// }
-
-// export interface Data {
-//     date: string;
-//     IDRExchangeRate: {
-//         USD: ExchangeRate;
-//         CNY: ExchangeRate;
-//         SGD: ExchangeRate;
-//         EUR: ExchangeRate;
-//         GBP: ExchangeRate;
-//         JPY: ExchangeRate;
-//         SAR: ExchangeRate;
-//     };
-// }
-
-// export interface ExchangeProps {
-//     title: string;
-// }
-
 export interface Series {
     name: string;
     data: number[];
 }
 
+export interface BarSeries{
+    series:Series[]
+}
+
 export interface ChartState {
     series: Series[];
     options: any; // Replace `any` with a more specific type if possible
+}
+
+export interface BarChartSeries {
+    title: string,
+    banks: string[]
 }

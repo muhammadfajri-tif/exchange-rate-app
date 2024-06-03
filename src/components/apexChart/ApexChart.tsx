@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from "react";
 import ReactApexChart from "react-apexcharts";
 import "./apexChart.scss";
 import { InfoChartProps, ChartState } from "../../types/types";
-// import exchange from "../../data/exchange-rates.json";
 import { Context } from "../../context/Context";
 
 const convertTimestampToDate = (timestamp: number): string => {
