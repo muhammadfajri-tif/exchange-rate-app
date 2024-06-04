@@ -190,6 +190,7 @@ const ContextProvider: React.FC<Props> = (props) => {
       // const data = await response.json();
 
       const result: Payload[] = data;
+      console.log("result", result);
 
       setPayload(result);
     } catch (error) {
