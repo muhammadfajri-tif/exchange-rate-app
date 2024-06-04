@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
-import { BarChartSeries, ChartState } from '../../types/types'
+import { BarChartSeries, ChartState } from '../../types/types';
 import exchange from "../../data/exchange-rates.json";
 import "./BarChart.scss";
 
@@ -32,11 +32,10 @@ const BarChart: React.FC<{ barChart: BarChartSeries }> = ({ barChart }) => {
 
         const seriesData = banks.map(bank => {
             const data = getDataForBank(bank);
-            return {
-                name: bank,
-                data: [isBuying ? data.buy : data.sell],
-            };
+            return isBuying ? data.buy : data.sell;
         });
+
+        const colors = banks.map((_, index) => `hsl(${(index * 360) / banks.length}, 70%, 50%)`);
 
         const labelStyle = {
             style: {
@@ -46,7 +45,10 @@ const BarChart: React.FC<{ barChart: BarChartSeries }> = ({ barChart }) => {
         };
 
         setState({
-            series: seriesData,
+            series: [{
+                name: isBuying ? "Buying" : "Selling",
+                data: seriesData
+            }],
             options: {
                 chart: {
                     type: 'bar',
@@ -57,6 +59,7 @@ const BarChart: React.FC<{ barChart: BarChartSeries }> = ({ barChart }) => {
                         },
                     },
                 },
+                colors: colors,
                 title: {
                     text: barChart.title,
                     align: "center" as const,
@@ -70,6 +73,7 @@ const BarChart: React.FC<{ barChart: BarChartSeries }> = ({ barChart }) => {
                         horizontal: false,
                         columnWidth: '55%',
                         endingShape: 'rounded',
+                        distributed: true,
                     },
                 },
                 dataLabels: {
@@ -81,7 +85,7 @@ const BarChart: React.FC<{ barChart: BarChartSeries }> = ({ barChart }) => {
                     colors: ['transparent'],
                 },
                 xaxis: {
-                    categories: [selectedKurs],
+                    categories: banks,
                     labels: labelStyle
                 },
                 yaxis: {
@@ -126,7 +130,7 @@ const BarChart: React.FC<{ barChart: BarChartSeries }> = ({ barChart }) => {
     return (
         <>
             <button onClick={toggleData}>
-                {isBuying ? "Selling" : "Buying"} Rates
+                {isBuying ? "Buying" : "Selling"} Rates
             </button>
             <select name="kurs" id="kurs" onChange={handleSelectChange} value={selectedKurs}>
                 <option value="USD">USD</option>
