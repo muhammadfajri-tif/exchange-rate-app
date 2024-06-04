@@ -1,5 +1,5 @@
 import Carousel from "../../components/carousel/Carousel";
-import CustomDropdown from "./CustomDropdown";
+// import CustomDropdown from "./CustomDropdown";
 import BarChart from "../../components/barChart/BarChart";
 import "./home.scss";
 import { singleUser } from "../../data";
@@ -7,6 +7,7 @@ import { BarChartSeries } from "../../types/types";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/Context";
 import { getResponse } from "../../config/gemini";
+import Table from "../../components/table/Table";
 
 const Home = () => {
   const bankNotes: BarChartSeries = { title: "Bank Notes", banks: [] };
@@ -126,8 +127,7 @@ const Home = () => {
         </div>
       </div>
       <div className="App">
-        <h1>Custom Dropdown Select Menu</h1>
-        <CustomDropdown />
+        <Table />
       </div>
     </div>
   );

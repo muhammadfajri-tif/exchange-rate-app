@@ -182,7 +182,8 @@ const ContextProvider: React.FC<Props> = (props) => {
   const fetchPayload = async () => {
     try {
       const response = await fetch(
-        "https://api.exchange-rate.zrie.me/dev"
+        // "http://exchange-rates-project.s3-website-ap-southeast-1.amazonaws.com/dev/scraping/exchange-rates.json"
+        import.meta.env.VITE_BASE_URL
       );
       let dataText = await response.text();
       // the response is [] so we need to parse it
