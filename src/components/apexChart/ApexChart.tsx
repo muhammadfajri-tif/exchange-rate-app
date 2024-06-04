@@ -24,6 +24,7 @@ export default function Chart({ currentUser }: InfoChartProps) {
 
     useEffect(() => {
         if(!payload)return;
+        let i:number = 0;
 
         const dates: string[] = [];
         const buyValueUSD: number[] = [];
@@ -41,25 +42,28 @@ export default function Chart({ currentUser }: InfoChartProps) {
         const sellValueJPY: number[] = [];
         const sellValueSAR: number[] = [];
 
-        payload.slice().reverse().forEach((res) => {
-            if (res.bank.toLowerCase() === currentUser.title.toLowerCase() && res.type === selectedKursType.toLowerCase().trim()) {
-                dates.push(convertTimestampToDate(res.date));
-                buyValueUSD.push(Number(res.IDRExchangeRate.USD.buy));
-                buyValueCNY.push(Number(res.IDRExchangeRate.CNY.buy));
-                buyValueSGD.push(Number(res.IDRExchangeRate.SGD.buy));
-                buyValueEUR.push(Number(res.IDRExchangeRate.EUR.buy));
-                buyValueGBP.push(Number(res.IDRExchangeRate.GBP.buy));
-                buyValueJPY.push(Number(res.IDRExchangeRate.JPY.buy));
-                buyValueSAR.push(Number(res.IDRExchangeRate.SAR.buy));
-                sellValueCNY.push(Number(res.IDRExchangeRate.CNY.sell));
-                sellValueSGD.push(Number(res.IDRExchangeRate.SGD.sell));
-                sellValueEUR.push(Number(res.IDRExchangeRate.EUR.sell));
-                sellValueGBP.push(Number(res.IDRExchangeRate.GBP.sell));
-                sellValueJPY.push(Number(res.IDRExchangeRate.JPY.sell));
-                sellValueSAR.push(Number(res.IDRExchangeRate.SAR.sell));
-                sellValueUSD.push(Number(res.IDRExchangeRate.USD.sell));
-            }
-        });
+        if(i === 0){
+            i++;
+            payload.slice().reverse().forEach((res) => {
+                if (res.bank.toLowerCase() === currentUser.title.toLowerCase() && res.type === selectedKursType.toLowerCase().trim()) {
+                    dates.push(convertTimestampToDate(res.date));
+                    buyValueUSD.push(Number(res.IDRExchangeRate.USD.buy));
+                    buyValueCNY.push(Number(res.IDRExchangeRate.CNY.buy));
+                    buyValueSGD.push(Number(res.IDRExchangeRate.SGD.buy));
+                    buyValueEUR.push(Number(res.IDRExchangeRate.EUR.buy));
+                    buyValueGBP.push(Number(res.IDRExchangeRate.GBP.buy));
+                    buyValueJPY.push(Number(res.IDRExchangeRate.JPY.buy));
+                    buyValueSAR.push(Number(res.IDRExchangeRate.SAR.buy));
+                    sellValueCNY.push(Number(res.IDRExchangeRate.CNY.sell));
+                    sellValueSGD.push(Number(res.IDRExchangeRate.SGD.sell));
+                    sellValueEUR.push(Number(res.IDRExchangeRate.EUR.sell));
+                    sellValueGBP.push(Number(res.IDRExchangeRate.GBP.sell));
+                    sellValueJPY.push(Number(res.IDRExchangeRate.JPY.sell));
+                    sellValueSAR.push(Number(res.IDRExchangeRate.SAR.sell));
+                    sellValueUSD.push(Number(res.IDRExchangeRate.USD.sell));
+                }
+            });
+        }
 
         const labelStyle = {
             style: {
