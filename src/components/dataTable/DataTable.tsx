@@ -34,7 +34,7 @@ const DataTable = (props: Props) => {
     // mutation.mutate(id)
   };
 
-  const actionColumn: GridColDef = {
+  /*const actionColumn: GridColDef = {
     field: "action",
     headerName: "Action",
     width: 200,
@@ -50,14 +50,15 @@ const DataTable = (props: Props) => {
         </div>
       );
     },
-  };
+  };*/
 
   return (
     <div className="dataTable">
       <DataGrid
         className="dataGrid"
         rows={props.rows}
-        columns={[...props.columns, actionColumn]}
+        //columns={[...props.columns, actionColumn]}
+        columns={[...props.columns]}
         initialState={{
           pagination: {
             paginationModel: {
