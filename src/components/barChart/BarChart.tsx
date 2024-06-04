@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactApexChart from "react-apexcharts";
 import { BarChartSeries, ChartState } from '../../types/types';
-import exchange from "../../data/exchange-rates.json";
+// import exchange from "../../data/exchange-rates.json";
 import "./BarChart.scss";
+import { Context } from "../../context/Context";
 
 const BarChart: React.FC<{ barChart: BarChartSeries }> = ({ barChart }) => {
     const banks: Array<string> = [];
@@ -11,23 +12,33 @@ const BarChart: React.FC<{ barChart: BarChartSeries }> = ({ barChart }) => {
     const [isBuying, setIsBuying] = useState(true);
     const [state, setState] = useState<ChartState | null>(null);
     const [selectedKurs, setKurs] = useState<string>("USD");
+    const { payload } = useContext(Context);
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setKurs(event.target.value);
     };
 
     useEffect(() => {
+        if (!payload) return;
         const getDataForBank = (bank: string) => {
-            const filteredExchange = exchange.filter(item => item.type === barChart.title.toLowerCase() && item.bank === bank.toLowerCase());
+            const filteredExchange = payload.filter(item => item.type === barChart.title.toLowerCase() && item.bank === bank.toLowerCase());
             const latestData = filteredExchange.reduce((current, latest) => {
                 return current.date > latest.date ? current : latest;
             }, filteredExchange[0]);
 
-            return {
-                bank,
-                buy: Number(latestData.IDRExchangeRate[selectedKurs].buy),
-                sell: Number(latestData.IDRExchangeRate[selectedKurs].sell),
-            };
+            if (latestData && latestData.IDRExchangeRate && latestData.IDRExchangeRate[selectedKurs]) {
+                return {
+                    bank,
+                    buy: Number(latestData.IDRExchangeRate[selectedKurs].buy),
+                    sell: Number(latestData.IDRExchangeRate[selectedKurs].sell),
+                };
+            } else {
+                return {
+                    bank,
+                    buy: 0,
+                    sell: 0,
+                };
+            }
         };
 
         const seriesData = banks.map(bank => {
@@ -117,7 +128,7 @@ const BarChart: React.FC<{ barChart: BarChartSeries }> = ({ barChart }) => {
                 },
             },
         });
-    }, [barChart.title, isBuying, selectedKurs]);
+    }, [barChart.title, isBuying, selectedKurs, payload]);
 
     if (!state) {
         return <div>Loading...</div>;

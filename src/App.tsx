@@ -1,5 +1,4 @@
 import Home from "./pages/home/Home";
-import Users from "./pages/users/Users";
 import Products from "./pages/products/Products";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
@@ -44,7 +43,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/users/:id" element={<User />} />
+          <Route path="/bank-profile/:id" element={<User />} />
           <Route path="/ask-ai" element={<Chat />} />
         </Route>
         <Route path="/login" element={<Login />} />

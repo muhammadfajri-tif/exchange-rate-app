@@ -1,5 +1,5 @@
 import "./single.scss";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect} from "react";
 import ApexCharts from "../apexChart/ApexChart";
 import BankMenu from "../bankMenu/BankMenu";
 

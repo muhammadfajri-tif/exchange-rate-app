@@ -1,14 +1,14 @@
 export const bankMenu = {
-  BCA: "/users/BCA",
-  BNI: "/users/BNI",
-  BI: "/users/BI",
-  BRI: "/users/BRI",
-  Mandiri: "/users/Mandiri",
-  HSBC: "/users/HSBC",
-  Panin: "/users/Panin",
-  Permata: "/users/Permata",
-  OCBC: "/users/OCBC",
-  CIMB: "/users/CIMB",
+  BCA: "/bank-profile/BCA",
+  BNI: "/bank-profile/BNI",
+  BI: "/bank-profile/BI",
+  BRI: "/bank-profile/BRI",
+  Mandiri: "/bank-profile/Mandiri",
+  HSBC: "/bank-profile/HSBC",
+  Panin: "/bank-profile/Panin",
+  Permata: "/bank-profile/Permata",
+  OCBC: "/bank-profile/OCBC",
+  CIMB: "/bank-profile/CIMB",
 };
 
 export const menu = [
@@ -25,7 +25,7 @@ export const menu = [
       {
         id: 2,
         title: "Profile",
-        url: "/users/BCA",
+        url: "/bank-profile/BCA",
         icon: "user.svg",
       },
       {
