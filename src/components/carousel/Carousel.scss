@@ -1,5 +1,7 @@
 .carousel-container {
-  padding: 20px;
+  overflow: hidden;
+  // padding right left 20px and bottom 10px
+  padding: 0 40px 30px 40px;
 }
 
 .carousel-slide {
@@ -22,13 +24,11 @@
 }
 
 .slick-prev {
-  left: -40px;
-  z-index: 1;
+  left: -30px;
 }
 
 .slick-next {
   right: -60px;
-  z-index: 1;
 }
 
 .slick-dots {

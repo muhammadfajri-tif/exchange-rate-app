@@ -127,8 +127,6 @@ const Home = () => {
         </div>
       </div>
       <div className="App">
-        {/*<h1>Custom Dropdown Select Menu</h1>
-        <CustomDropdown />*/}
         <Table />
       </div>
     </div>
