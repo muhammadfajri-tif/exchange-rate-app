@@ -88,7 +88,7 @@ export const singleUser = [
     title: "Panin",
     img: "//upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Logo_Panin_Bank.svg/800px-Logo_Panin_Bank.svg.png",
     info: {
-      jenis_kurs: "Bank Notes, DD/TT, e-Rates",
+      jenis_kurs: "DD/TT, e-Rates",
       Tahun: "2024"
     },
   },
