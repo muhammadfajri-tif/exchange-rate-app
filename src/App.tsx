@@ -43,10 +43,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/users" element={<Users />} />
           <Route path="/products" element={<Products />} />
           <Route path="/users/:id" element={<User />} />
-          <Route path="/chat" element={<Chat />} />
           <Route path="/ask-ai" element={<Chat />} />
         </Route>
         <Route path="/login" element={<Login />} />

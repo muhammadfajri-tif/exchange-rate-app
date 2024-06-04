@@ -5,19 +5,15 @@ import BankMenu from "../bankMenu/BankMenu";
 
 import { BankProfileProps, UserProps } from "../../types/types";
 import BankChat from "../bankChat/BankChat";
-import { Context } from "../../context/Context";
 
 const BankProfile = ({ users, bankId }: BankProfileProps) => {
   const [currentUser, setCurrentUser] = useState<UserProps | undefined>(
     users.find((user) => user.id === bankId)
   );
 
-  const { fetchPayload } = useContext(Context);
-
   useEffect(() => {
-    fetchPayload();
     setCurrentUser(users.find((user) => user.id === bankId));
-  }, [bankId, users, fetchPayload]);
+  }, [bankId, users]);
 
   if (!currentUser) {
     return <div>User not found</div>;

@@ -4,18 +4,48 @@ import { assets } from "../../assets/assets";
 import { Context } from "../../context/Context";
 import Markdown from "react-markdown";
 
-type Role = "investor" | "company" | "consumer" | "bank and financial institution" | "government" ;
+type Role =
+  | "investor"
+  | "company"
+  | "consumer"
+  | "bank and financial institution"
+  | "government";
 
 interface CaseOptions {
   [key: string]: string[];
 }
 
 const caseOptions: CaseOptions = {
-  investor: ["Foreign Currency Investment", "Portofolio Diversification", "Currency Trend Prediction", "Investment Risk Management"],
-  company: ["International Transactions","Fund Management","Foreign Exchange Hedging","Production Cost Analysis"],
-  consumer: ["Purchasing Imported Goods", "Traveling Abroad", "Savings in Foreign Currency","Repaying Foreign Debt",],
-  bank_and_financial: ["Foreign Exchange Products","Reserve Mangement","Credit Risk Analysis","Bank Investment Strategy",],
-  government: ["Monetary Policy","Fiscal Policy","International Trade","Economic Stability",],
+  investor: [
+    "Foreign Currency Investment",
+    "Portofolio Diversification",
+    "Currency Trend Prediction",
+    "Investment Risk Management",
+  ],
+  company: [
+    "International Transactions",
+    "Fund Management",
+    "Foreign Exchange Hedging",
+    "Production Cost Analysis",
+  ],
+  consumer: [
+    "Purchasing Imported Goods",
+    "Traveling Abroad",
+    "Savings in Foreign Currency",
+    "Repaying Foreign Debt",
+  ],
+  bank_and_financial: [
+    "Foreign Exchange Products",
+    "Reserve Mangement",
+    "Credit Risk Analysis",
+    "Bank Investment Strategy",
+  ],
+  government: [
+    "Monetary Policy",
+    "Fiscal Policy",
+    "International Trade",
+    "Economic Stability",
+  ],
 };
 
 const detailCaseOptions: CaseOptions = {
@@ -53,7 +83,7 @@ const detailCaseOptions: CaseOptions = {
 };
 
 const Chat = () => {
-  const { onSent, recentPrompt, showResult, loading, chats, isFirst } =
+  const { onSent, recentPrompt, showResult, loading, chats, isFirst, payload } =
     useContext(Context);
 
   // const location = useLocation();
@@ -171,7 +201,9 @@ const Chat = () => {
               <option value="investor">Investor</option>
               <option value="company">Company</option>
               <option value="consumer">Consumer</option>
-              <option value="bank_and_financial">Bank and Financial Instition</option>
+              <option value="bank_and_financial">
+                Bank and Financial Instition
+              </option>
               <option value="government">Government</option>
             </select>
 
@@ -227,6 +259,7 @@ const Chat = () => {
                       },
                     },
                   };
+
                   onSent(
                     detailCaseOptions[selectedRole][
                       caseOptions[selectedRole].indexOf(selectedCase)
@@ -235,7 +268,9 @@ const Chat = () => {
                     detailCaseOptions[selectedRole][
                       caseOptions[selectedRole].indexOf(selectedCase)
                     ],
-                    JSON.stringify(exchange_rates)
+                    payload
+                      ? JSON.stringify(payload.slice(0, 100))
+                      : JSON.stringify(exchange_rates)
                   );
                 }
               }}

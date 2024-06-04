@@ -1,43 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import "./BankChat.css";
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/Context";
 import Markdown from "react-markdown";
-
-type Role = "student" | "businessman" | "traveler";
-
-interface CaseOptions {
-  [key: string]: string[];
-}
-
-const caseOptions: CaseOptions = {
-  student: ["Study Abroad", "Scholarships", "Part-time Work"],
-  businessman: [
-    "International Trade",
-    "Market Analysis",
-    "Business Strategies",
-  ],
-  traveler: ["Currency Exchange", "Travel Budgeting", "International Shopping"],
-};
-
-const detailCaseOptions: CaseOptions = {
-  student: [
-    "As a student, I need to understand the exchange rates to inform my decision on studying abroad. Please provide an analysis of the factors affecting these exchange rates, as well as predictions on their future movements. I am also interested in the potential impact of these exchange rate changes on my tuition fees and living expenses. This information is crucial for me in planning my study abroad experience. Thank you.",
-    "As a student, I am looking into taking online courses from foreign institutions. Can you explain how exchange rates influence the cost of these courses? Additionally, what are the potential financial risks and benefits associated with fluctuating exchange rates over the course duration?",
-    "As a student seeking an international internship, I need to understand how exchange rates will affect my stipend and expenses in a foreign country. Could you provide insights into how exchange rate fluctuations might impact my overall budget and financial planning during my internship?",
-  ],
-
-  businessman: [
-    "As a businessman, I need to develop effective business strategies considering exchange rate fluctuations. Please provide an analysis of the current exchange rates and their potential impact on international trade, pricing strategies, and competitive positioning. How can I hedge against adverse currency movements?",
-    "As a businessman involved in import/export activities, understanding exchange rates is crucial for pricing and cost management. Can you explain how exchange rates affect the cost of goods sold and profit margins? What strategies can I employ to mitigate the risks associated with exchange rate volatility?",
-    "As a businessman looking to invest in foreign markets, I need to consider exchange rates in my investment decisions. Please provide an analysis of how currency fluctuations can impact the returns on foreign investments. What are the best practices for managing exchange rate risk in international investments?",
-  ],
-  traveler: [
-    "As a traveler planning a vacation abroad, I need to understand how exchange rates will affect my travel budget. Can you provide insights into the current exchange rates and their potential impact on accommodation, dining, and entertainment expenses? What are the best practices for exchanging currency to get the best rates?",
-    "As a traveler planning a long-term trip, I need to manage my finances carefully considering exchange rates. Could you explain how exchange rate fluctuations might impact my overall travel costs, including accommodation, food, and transportation? What strategies can I use to minimize the financial impact of unfavorable exchange rate changes?",
-    "As a traveler visiting multiple countries, I need to navigate different exchange rates. How can I effectively manage my finances across various currencies? Please provide advice on how to track and optimize currency exchange while traveling through several countries?",
-  ],
-};
 
 const BankChat = () => {
   const {
@@ -50,22 +15,6 @@ const BankChat = () => {
     setInput,
     input,
   } = useContext(Context);
-
-  // const location = useLocation();
-  // const { exchange_rates } = location.state;
-
-  const [selectedRole, setSelectedRole] = useState<Role | "">("");
-  const [selectedCase, setSelectedCase] = useState<string>("");
-
-  const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const role = event.target.value as Role;
-    setSelectedRole(role);
-    setSelectedCase("");
-  };
-
-  const handleCaseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCase(event.target.value);
-  };
 
   return (
     <div className="chat">

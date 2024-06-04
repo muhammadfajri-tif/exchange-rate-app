@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react";
 import Carousel from "../../components/carousel/Carousel";
 import CustomDropdown from "./CustomDropdown";
 import BarChart from "../../components/barChart/BarChart";
 import "./home.scss";
-import { Context } from "../../context/Context";
 import { singleUser } from "../../data";
 import { BarChartSeries } from "../../types/types";
+import { useContext, useEffect, useState } from "react";
+import { Context } from "../../context/Context";
 import { getResponse } from "../../config/gemini";
 
 const Home = () => {
@@ -32,7 +32,6 @@ const Home = () => {
   });
 
   const {
-    fetchPayload,
     tips,
     setTips,
     carouseLoading: loading,
@@ -43,9 +42,13 @@ const Home = () => {
   const [retryCount, setRetryCount] = useState(0);
   const maxRetries = 5;
 
+  const { fetchPayload } = useContext(Context);
+
   useEffect(() => {
     if (payload === null) fetchPayload();
+  }, [fetchPayload, payload]);
 
+  useEffect(() => {
     let index = 0;
     const fetchData = async () => {
       try {
@@ -53,7 +56,7 @@ const Home = () => {
 
         let contextJson;
         if (payload) {
-          contextJson = payload;
+          contextJson = payload.slice(0, 100);
         } else {
           contextJson = {
             exchange_rates: {
@@ -101,7 +104,7 @@ const Home = () => {
     if (tips.length === 0 && retryCount < maxRetries) {
       fetchData();
     }
-  }, [fetchPayload, payload, loading, tips, retryCount]);
+  }, [payload, loading, tips, retryCount]);
 
   return (
     <div className="home">

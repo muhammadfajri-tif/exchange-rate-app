@@ -1,6 +1,6 @@
 .chat {
   flex: 1;
-  min-height: 120vh;
+  min-height: 95vh;
   padding-bottom: 15vh;
   position: relative;
 }
@@ -118,7 +118,7 @@
 
 .result {
   padding: 0px 5%;
-  max-height: 80vh;
+  max-height: 68vh;
   overflow-y: scroll;
 }
 
