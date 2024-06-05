@@ -110,12 +110,10 @@ const ContextProvider: React.FC<Props> = (props) => {
 
   const onSent = async (
     prompt?: string,
-    context?: string,
     role?: string,
     contextRole?: string
   ) => {
     console.log("prompt", prompt);
-    console.log("context", context);
 
     if (!prompt) {
       return;
@@ -134,24 +132,15 @@ const ContextProvider: React.FC<Props> = (props) => {
     setResultData("");
     setLoading(true);
     setShowResult(true);
-    // let response = await runChat(prompt, context, chats); // dri feat/api
+
     let response = "";
 
     if (role && contextRole) {
-      response = await runChat(prompt, context, chats, role, contextRole);
+      response = await runChat(prompt, chats, role, contextRole);
     } else {
-      response = await runChat(prompt, context, chats);
+      response = await runChat(prompt, chats);
     }
-    // if (prompt !== undefined) {
-    //   response = await runChat(prompt, context, chats);
-    //   setRecentPrompt(prompt);
-    // } else {
-    //   setPrevPrompts((prev) => [...prev, input]);
-    //   setRecentPrompt(input);
-    //   response = await runChat(input, context, chats);
-    // }
 
-    // let responseArray = response.split("**");
     let responseArray = response;
     let newResponse = "";
     for (let i = 0; i < responseArray.length; i++) {
@@ -178,17 +167,12 @@ const ContextProvider: React.FC<Props> = (props) => {
     setLoading(false);
   };
 
-  // fetch payload
   const fetchPayload = async () => {
     try {
-      const response = await fetch(
-        // "http://exchange-rates-project.s3-website-ap-southeast-1.amazonaws.com/dev/scraping/exchange-rates.json"
-        import.meta.env.VITE_BASE_URL
-      );
+      const response = await fetch(import.meta.env.VITE_BASE_URL);
       let dataText = await response.text();
-      // the response is [] so we need to parse it
+
       const data = JSON.parse(dataText);
-      // const data = await response.json();
 
       const result: Payload[] = data;
       console.log("result", result);

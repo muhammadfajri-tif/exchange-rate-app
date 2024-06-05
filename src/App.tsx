@@ -1,5 +1,4 @@
 import Home from "./pages/home/Home";
-import Products from "./pages/products/Products";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 import Menu from "./components/menu/Menu";
@@ -42,7 +41,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
           <Route path="/bank-profile/:id" element={<User />} />
           <Route path="/ask-ai" element={<Chat />} />
         </Route>

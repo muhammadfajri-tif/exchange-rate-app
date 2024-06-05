@@ -35,12 +35,15 @@ const rows = exchange.flatMap((rate, index) => [
   },
 ]);
 
-function formatDate(dateString) {
-  const options = { day: "numeric", month: "long", year: "numeric" };
-  return new Date(dateString).toLocaleString(undefined, options);
+function formatDate(dateString: string) {
+  return new Date(dateString).toLocaleString(undefined, {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 }
 
-function formatCurrency(value) {
+function formatCurrency(value: number | bigint) {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
@@ -56,9 +59,6 @@ const columns: GridColDef[] = [
     align: "center",
     valueGetter: (params) => formatDate(params.value),
   },
-  //{ field: 'type', headerName: 'Type', width: 100 },
-  //{ field: 'bank', headerName: 'Bank', width: 50 },
-  //{ field: 'transaction', headerName: 'Transaction', width: 100 },
   {
     field: "USD",
     headerName: "USD",
@@ -117,7 +117,7 @@ const columns: GridColDef[] = [
   },
 ];
 
-function formatBankName(bank) {
+function formatBankName(bank: string) {
   const banksToUppercase = ["bi", "bca", "bni", "bri", "cimb", "ocbc", "btn"];
   if (banksToUppercase.includes(bank.toLowerCase())) {
     return bank.toUpperCase();
@@ -144,7 +144,10 @@ const Table = () => {
       <button onClick={() => setShowBuy(!showBuy)}>
         Toggle {showBuy ? "Sell" : "Buy"}
       </button>
-      <select class="kurs" onChange={(e) => setSelectedType(e.target.value)}>
+      <select
+        className="kurs"
+        onChange={(e) => setSelectedType(e.target.value)}
+      >
         <option value="bank notes">Bank Notes</option>
         <option value="dd/tt">DD/TT</option>
         <option value="e-rates">E-Rates</option>

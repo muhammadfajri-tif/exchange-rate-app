@@ -264,7 +264,6 @@ const Chat = () => {
                     detailCaseOptions[selectedRole][
                       caseOptions[selectedRole].indexOf(selectedCase)
                     ],
-                    "fake",
                     detailCaseOptions[selectedRole][
                       caseOptions[selectedRole].indexOf(selectedCase)
                     ],
