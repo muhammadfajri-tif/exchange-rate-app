@@ -115,7 +115,7 @@ const Table = () => {
     },
     {
       id: `${index}_sell`,
-      date: new Date(rate.date * 1000).toLocaleDateString(),
+      date: new Date(rate.date).toLocaleDateString(),
       type: rate.type,
       bank: rate.bank,
       transaction: "Sell",
