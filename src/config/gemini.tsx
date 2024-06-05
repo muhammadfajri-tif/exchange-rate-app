@@ -46,18 +46,18 @@ async function runChat(
 
   if (role && contextRole) {
     prompt =
-      "Ini adalah data kursdollar saat ini: " +
+      "Ini adalah data Exchange Rate saat ini: " +
       contextRole +
       " " +
       role +
-      " tolong jelaskan dalam bentuk yang mudah dimengerti oleh orang awam yang tidak mengerti tentang kursdollar dan bahasa indonesia yang mudah dimengerti";
+      " tolong jelaskan dalam bentuk yang mudah dimengerti oleh orang awam yang tidak mengerti tentang Exchange Rate dan bahasa indonesia yang mudah dimengerti";
   } else {
     prompt =
-      "Ini adalah kursdollar saat ini: " +
+      "Ini adalah Exchange Rate saat ini: " +
       JSON.stringify(contextJson) +
       " " +
       prompt +
-      " tolong jelaskan dalam bentuk yang mudah dimengerti oleh orang awam yang tidak mengerti tentang kursdollar dan bahasa indonesia yang mudah dimengerti";
+      " tolong jelaskan dalam bentuk yang mudah dimengerti oleh orang awam yang tidak mengerti tentang Exchange Rate dan bahasa indonesia yang mudah dimengerti";
   }
   console.log("prompt in runChat", prompt);
 
@@ -108,7 +108,7 @@ async function getResponse(prompt: string) {
   prompt =
     prompt +
     " " +
-    'tolong berikan response dalam bentuk json {"tips": ["tip1", "tip2", "tip3"]} dan jumlah tipsnya adalah 10 atau lebih. Juga buatlah response dalam kata-kata yang mudah dimengerti oleh orang awam yang tidak mengerti tentang kursdollar.';
+    'tolong berikan response dalam bentuk json {"tips": ["tip1", "tip2", "tip3"]} dan jumlah tipsnya adalah 10 atau lebih. Juga buatlah response dalam kata-kata yang mudah dimengerti oleh orang awam yang tidak mengerti tentang Exchange Rate.';
 
   const result = await model.generateContent(prompt);
   const response = result.response;

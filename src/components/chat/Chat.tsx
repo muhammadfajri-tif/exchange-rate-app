@@ -118,7 +118,7 @@ const Chat = () => {
           <>
             <div className="greets">
               <p>
-                <span>Kursdollar AI</span>
+                <span>Exchange Rate AI</span>
               </p>
               <p>Exchange rates are updated every 24 hours. Ask me anything!</p>
             </div>

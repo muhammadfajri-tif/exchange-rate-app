@@ -74,9 +74,9 @@ const Home = () => {
         }
 
         const prompt =
-          "ini adalah kursdollar bank mandiri: " +
+          "ini adalah Exchange Rate bank mandiri: " +
           JSON.stringify(contextJson) +
-          " tolong berikan tips-tips insight dari kursdollar bank mandiri";
+          " tolong berikan tips-tips insight dari Exchange Rate bank mandiri";
 
         const response = await getResponse(prompt);
         const data = JSON.parse(response);
