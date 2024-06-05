@@ -8,6 +8,8 @@ import { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/Context";
 import { getResponse } from "../../config/gemini";
 import Table from "../../components/table/Table";
+import TopBox from "../../components/topBox/TopBox";
+import PieChartBox from "../../components/pieChartBox/PieChartBox";
 
 const Home = () => {
   const bankNotes: BarChartSeries = { title: "Bank Notes", banks: [] };
@@ -112,6 +114,9 @@ const Home = () => {
       <div className="box box8">
         <Carousel />
       </div>
+      <div className="box box1">
+        <TopBox />
+      </div>
       <div className="home_chart">
         <div className="box box7">
           <BarChart barChart={bankNotes} />
@@ -125,6 +130,9 @@ const Home = () => {
         <div className="box box7">
           <BarChart barChart={specialRates} />
         </div>
+      </div>
+      <div className="box box4">
+        <PieChartBox />
       </div>
       <div className="App">
         <Table />
