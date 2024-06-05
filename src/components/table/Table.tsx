@@ -1,39 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DataTable from "../../components/dataTable/DataTable";
 import { GridColDef } from "@mui/x-data-grid";
-import exchange from "../../data/exchange-rates.json";
-import "./Table.scss";
-
-const rows = exchange.flatMap((rate, index) => [
-  {
-    id: `${index}_buy`,
-    date: new Date(rate.date * 1000).toLocaleDateString(),
-    type: rate.type,
-    bank: rate.bank,
-    transaction: "Buy",
-    USD: rate.IDRExchangeRate.USD.buy,
-    SGD: rate.IDRExchangeRate.SGD.buy,
-    EUR: rate.IDRExchangeRate.EUR.buy,
-    CNY: rate.IDRExchangeRate.CNY.buy,
-    GBP: rate.IDRExchangeRate.GBP.buy,
-    JPY: rate.IDRExchangeRate.JPY.buy,
-    SAR: rate.IDRExchangeRate.SAR.buy,
-  },
-  {
-    id: `${index}_sell`,
-    date: new Date(rate.date * 1000).toLocaleDateString(),
-    type: rate.type,
-    bank: rate.bank,
-    transaction: "Sell",
-    USD: rate.IDRExchangeRate.USD.sell,
-    SGD: rate.IDRExchangeRate.SGD.sell,
-    EUR: rate.IDRExchangeRate.EUR.sell,
-    CNY: rate.IDRExchangeRate.CNY.sell,
-    GBP: rate.IDRExchangeRate.GBP.sell,
-    JPY: rate.IDRExchangeRate.JPY.sell,
-    SAR: rate.IDRExchangeRate.SAR.sell,
-  },
-]);
+import "./table.scss";
+import { Context } from "../../context/Context";
 
 function formatDate(dateString: string) {
   return new Date(dateString).toLocaleString(undefined, {
@@ -127,12 +96,45 @@ function formatBankName(bank: string) {
 }
 
 const Table = () => {
+  const { payload } = useContext(Context);
+
+  const rows = payload?.flatMap((rate, index) => [
+    {
+      id: `${index}_buy`,
+      date: new Date(rate.date).toLocaleDateString(),
+      type: rate.type,
+      bank: rate.bank,
+      transaction: "Buy",
+      USD: rate.IDRExchangeRate.USD.buy,
+      SGD: rate.IDRExchangeRate.SGD.buy,
+      EUR: rate.IDRExchangeRate.EUR.buy,
+      CNY: rate.IDRExchangeRate.CNY.buy,
+      GBP: rate.IDRExchangeRate.GBP.buy,
+      JPY: rate.IDRExchangeRate.JPY.buy,
+      SAR: rate.IDRExchangeRate.SAR.buy,
+    },
+    {
+      id: `${index}_sell`,
+      date: new Date(rate.date * 1000).toLocaleDateString(),
+      type: rate.type,
+      bank: rate.bank,
+      transaction: "Sell",
+      USD: rate.IDRExchangeRate.USD.sell,
+      SGD: rate.IDRExchangeRate.SGD.sell,
+      EUR: rate.IDRExchangeRate.EUR.sell,
+      CNY: rate.IDRExchangeRate.CNY.sell,
+      GBP: rate.IDRExchangeRate.GBP.sell,
+      JPY: rate.IDRExchangeRate.JPY.sell,
+      SAR: rate.IDRExchangeRate.SAR.sell,
+    },
+  ]);
+
   const [showBuy, setShowBuy] = useState(true);
   const [selectedBank, setSelectedBank] = useState("bi");
   const [selectedType, setSelectedType] = useState("bank notes");
-  const banks = Array.from(new Set(rows.map((row) => row.bank)));
+  const banks = Array.from(new Set(rows?.map((row) => row.bank)));
 
-  const filteredRows = rows.filter(
+  const filteredRows = rows?.filter(
     (row) =>
       row.transaction === (showBuy ? "Buy" : "Sell") &&
       (!selectedBank || row.bank === selectedBank) &&
@@ -167,7 +169,7 @@ const Table = () => {
         Bank - {formatBankName(selectedBank)}, Type - {selectedType},
         Transaction - {showBuy ? "Buy" : "Sell"}
       </p>
-      <DataTable columns={columns} rows={filteredRows} slug="mydata" />
+      <DataTable columns={columns} rows={filteredRows ?? []} slug="mydata" />
     </div>
   );
 };

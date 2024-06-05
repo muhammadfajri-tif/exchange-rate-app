@@ -83,8 +83,17 @@ const detailCaseOptions: CaseOptions = {
 };
 
 const Chat = () => {
-  const { onSent, recentPrompt, showResult, loading, chats, isFirst, payload } =
-    useContext(Context);
+  const {
+    onSent,
+    recentPrompt,
+    showResult,
+    loading,
+    chats,
+    isFirst,
+    payload,
+    input,
+    setInput,
+  } = useContext(Context);
 
   // const location = useLocation();
   // const { exchange_rates } = location.state;
@@ -193,91 +202,121 @@ const Chat = () => {
         )}
 
         <div className="chat-bottom">
-          <div className="dropdown-row">
-            <select value={selectedRole} onChange={handleRoleChange}>
-              <option value="" disabled>
-                Select role
-              </option>
-              <option value="investor">Investor</option>
-              <option value="company">Company</option>
-              <option value="consumer">Consumer</option>
-              <option value="bank_and_financial">
-                Bank and Financial Instition
-              </option>
-              <option value="government">Government</option>
-            </select>
-
-            <select
-              value={selectedCase}
-              onChange={handleCaseChange}
-              disabled={!selectedRole}
-            >
-              <option value="" disabled>
-                Select case
-              </option>
-              {selectedRole &&
-                caseOptions[selectedRole].map((caseOption) => (
-                  <option key={caseOption} value={caseOption}>
-                    {caseOption}
+          {!showResult ? (
+            <div>
+              <div className="dropdown-row">
+                <select value={selectedRole} onChange={handleRoleChange}>
+                  <option value="" disabled>
+                    Select role
                   </option>
-                ))}
-            </select>
-          </div>
-          <div className="send-button">
-            <button
-              onClick={() => {
-                if (selectedRole && selectedCase) {
-                  const exchange_rates = {
-                    IDRExchangeRate: {
-                      USD: {
-                        buy: "15898.11",
-                        sell: "16057.89",
-                      },
-                      SGD: {
-                        buy: "11805.24",
-                        sell: "11928.31",
-                      },
-                      EUR: {
-                        buy: "17258.99",
-                        sell: "17438.87",
-                      },
-                      CNY: {
-                        buy: "2201.68",
-                        sell: "2224.02",
-                      },
-                      GBP: {
-                        buy: "20119.06",
-                        sell: "20327.68",
-                      },
-                      JPY: {
-                        buy: "102.02",
-                        sell: "103.05",
-                      },
-                      SAR: {
-                        buy: "4238.93",
-                        sell: "4281.76",
-                      },
-                    },
-                  };
+                  <option value="investor">Investor</option>
+                  <option value="company">Company</option>
+                  <option value="consumer">Consumer</option>
+                  <option value="bank_and_financial">
+                    Bank and Financial Instition
+                  </option>
+                  <option value="government">Government</option>
+                </select>
 
-                  onSent(
-                    detailCaseOptions[selectedRole][
-                      caseOptions[selectedRole].indexOf(selectedCase)
-                    ],
-                    detailCaseOptions[selectedRole][
-                      caseOptions[selectedRole].indexOf(selectedCase)
-                    ],
-                    payload
-                      ? JSON.stringify(payload.slice(0, 100))
-                      : JSON.stringify(exchange_rates)
-                  );
-                }
-              }}
-              disabled={!selectedRole || !selectedCase}
-            >
-              Ask Now
-            </button>
-          </div>
+                <select
+                  value={selectedCase}
+                  onChange={handleCaseChange}
+                  disabled={!selectedRole}
+                >
+                  <option value="" disabled>
+                    Select case
+                  </option>
+                  {selectedRole &&
+                    caseOptions[selectedRole].map((caseOption) => (
+                      <option key={caseOption} value={caseOption}>
+                        {caseOption}
+                      </option>
+                    ))}
+                </select>
+              </div>
+              <div className="send-button">
+                <button
+                  onClick={() => {
+                    if (selectedRole && selectedCase) {
+                      const exchange_rates = {
+                        IDRExchangeRate: {
+                          USD: {
+                            buy: "15898.11",
+                            sell: "16057.89",
+                          },
+                          SGD: {
+                            buy: "11805.24",
+                            sell: "11928.31",
+                          },
+                          EUR: {
+                            buy: "17258.99",
+                            sell: "17438.87",
+                          },
+                          CNY: {
+                            buy: "2201.68",
+                            sell: "2224.02",
+                          },
+                          GBP: {
+                            buy: "20119.06",
+                            sell: "20327.68",
+                          },
+                          JPY: {
+                            buy: "102.02",
+                            sell: "103.05",
+                          },
+                          SAR: {
+                            buy: "4238.93",
+                            sell: "4281.76",
+                          },
+                        },
+                      };
+
+                      onSent(
+                        detailCaseOptions[selectedRole][
+                          caseOptions[selectedRole].indexOf(selectedCase)
+                        ],
+                        detailCaseOptions[selectedRole][
+                          caseOptions[selectedRole].indexOf(selectedCase)
+                        ],
+                        payload
+                          ? JSON.stringify(payload.slice(0, 100))
+                          : JSON.stringify(exchange_rates)
+                      );
+                    }
+                  }}
+                  disabled={!selectedRole || !selectedCase}
+                >
+                  Ask Now
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="search-box">
+              <input
+                onChange={(e) => setInput(e.target.value)}
+                value={input}
+                type="text"
+                placeholder="Enter a prompt here "
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    onSent(input, "");
+                  }
+                }}
+              />
+              <div>
+                <img src={assets.gallery_icon} alt="" />
+                <img src={assets.mic_icon} alt="" />
+                {input ? (
+                  <img
+                    onClick={() => onSent(input, "")}
+                    src={assets.send_icon}
+                    alt=""
+                  />
+                ) : null}
+              </div>
+            </div>
+          )}
+
           <p className="bottom-info">
             The information provided by the AI is not guaranteed to be accurate.
           </p>

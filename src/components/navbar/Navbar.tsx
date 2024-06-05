@@ -1,3 +1,4 @@
+import { assets } from "../../assets/assets";
 import "./navbar.scss";
 
 const Navbar = () => {
@@ -16,10 +17,7 @@ const Navbar = () => {
           <span>1</span>
         </div>
         <div className="user">
-          <img
-            src="https://images.pexels.com/photos/11038549/pexels-photo-11038549.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-            alt=""
-          />
+          <img src={assets.user_icon} alt="" />
           <span>User</span>
         </div>
         <img src="/settings.svg" alt="" className="icon" />

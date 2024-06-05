@@ -20,11 +20,6 @@
   border-radius: 50%;
 }
 
-.chat-container {
-  /* max-width: 900px; */
-  /* margin: auto; */
-}
-
 .chat .greet {
   margin: 17px 0px;
   font-size: 56px;
@@ -118,7 +113,7 @@
 
 .result {
   padding: 0px 5%;
-  max-height: 68vh;
+  max-height: 80vh;
   overflow-y: scroll;
 }
 
